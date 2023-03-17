@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import MultiStepFormComponent from "../../components/MultiStepForm";
 import Question1 from "../../components/Question1";
 import Question2 from "../../components/Question2";
@@ -9,6 +10,41 @@ import Question6 from "../../components/Question6";
 import Question7 from "../../components/Question7";
 import Question8 from "../../components/Question8";
 import Confirmation from "../../components/Confirmation";
+
+const StyledLandingPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  font-family: Arial, sans-serif;
+`;
+
+const StyledHeading = styled.h1`
+  font-size: 3rem;
+  margin-bottom: 20px;
+`;
+
+const StyledSubHeading = styled.p`
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+`;
+
+const StyledCTAButton = styled.button`
+  font-size: 1.5rem;
+  padding: 12px 24px;
+  cursor: pointer;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2a75d2;
+  }
+`;
 
 const Home = () => {
   const [showForm, setShowForm] = useState(false);
@@ -22,11 +58,15 @@ const Home = () => {
   return (
     <div>
       {!showForm && !formValues.length && (
-        <div>
-          <h1>Meal Plan Generator</h1>
-          <p>Discover the perfect meal plan tailored to your preferences.</p>
-          <button onClick={() => setShowForm(true)}>Get Started</button>
-        </div>
+        <StyledLandingPage>
+          <StyledHeading>Meal Plan Generator</StyledHeading>
+          <StyledSubHeading>
+            Discover the perfect meal plan tailored to your preferences.
+          </StyledSubHeading>
+          <StyledCTAButton onClick={() => setShowForm(true)}>
+            Get Started
+          </StyledCTAButton>
+        </StyledLandingPage>
       )}
       {showForm && (
         <MultiStepFormComponent

@@ -1,4 +1,34 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const MultiStepFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+`;
+
+const StepHeading = styled.h2`
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+`;
+
+const BackButton = styled.button`
+  font-size: 1rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #4285f4;
+    color: white;
+  }
+`;
 
 const MultiStepForm = ({ questions, onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -7,12 +37,13 @@ const MultiStepForm = ({ questions, onComplete }) => {
     adults: 1,
     children: 0,
     store: "",
-    priorities: [], // Add this line
+    priorities: [],
     diet: "",
     allergies: [],
     days: 1,
     meals: [],
   });
+
   const handleNext = (newValue, shouldMoveNext = true) => {
     setValues((prevValues) => {
       const newValues = [...prevValues];
@@ -36,10 +67,10 @@ const MultiStepForm = ({ questions, onComplete }) => {
   const CurrentQuestion = questions[currentStep].component;
 
   return (
-    <div>
-      <h2>
+    <MultiStepFormContainer>
+      <StepHeading>
         Step {currentStep + 1} of {questions.length}
-      </h2>
+      </StepHeading>
       {currentStep === 3 ? (
         <CurrentQuestion
           value={formData.priorities}
@@ -53,8 +84,8 @@ const MultiStepForm = ({ questions, onComplete }) => {
         />
       )}
 
-      {currentStep > 0 && <button onClick={handleBack}>Back</button>}
-    </div>
+      {currentStep > 0 && <BackButton onClick={handleBack}>Back</BackButton>}
+    </MultiStepFormContainer>
   );
 };
 
