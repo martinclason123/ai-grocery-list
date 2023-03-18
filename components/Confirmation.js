@@ -16,6 +16,19 @@ const Confirmation = ({ formValues, onSubmit, onWait }) => {
     }
   };
 
+  const safeStringify = (value) => {
+    const cache = new Set();
+    return JSON.stringify(value, (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (cache.has(value)) {
+          return;
+        }
+        cache.add(value);
+      }
+      return value;
+    });
+  };
+
   return (
     <div>
       <h2>Confirmation</h2>
@@ -23,7 +36,7 @@ const Confirmation = ({ formValues, onSubmit, onWait }) => {
       <ol>
         {formValues.map((value, index) => (
           <li key={index}>
-            <strong>Question {index + 1}:</strong> {JSON.stringify(value)}
+            <strong>Question {index + 1}:</strong> {safeStringify(value || {})}
           </li>
         ))}
       </ol>

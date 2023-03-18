@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+import { QuestionContainer, QuestionHeading, NextButton } from "./sharedStyles";
 
 const mealOptions = [
   "Breakfast",
@@ -9,32 +11,59 @@ const mealOptions = [
   "Evening snack",
 ];
 
-const Question8 = ({ value, onChange }) => {
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const StyledCheckbox = styled.input`
+  margin-right: 8px;
+`;
+
+const Question8 = ({ value, onChange, onNext, onBack }) => {
   const handleChange = (e) => {
     const meal = e.target.value;
     if (e.target.checked) {
-      onChange([...value, meal]);
+      onChange([...(value || []), meal]);
     } else {
       onChange(value.filter((item) => item !== meal));
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowRight") {
+      onNext();
+    } else if (e.key === "ArrowLeft") {
+      onBack();
+    }
+  };
+
+  const handleNext = () => {
+    if (value && value.length > 0) {
+      onNext();
+    } else {
+      alert("Please select at least one meal.");
+    }
+  };
+
   return (
-    <div>
-      <h3>What meals should the plan include?</h3>
+    <QuestionContainer onKeyDown={handleKeyDown}>
+      <QuestionHeading>What meals should the plan include?</QuestionHeading>
       {mealOptions.map((meal, index) => (
-        <div key={index}>
-          <input
+        <CheckboxContainer key={index}>
+          <StyledCheckbox
             type="checkbox"
             id={`meal-${index}`}
             value={meal}
-            checked={value.includes(meal)}
+            checked={value ? value.includes(meal) : false}
             onChange={handleChange}
           />
           <label htmlFor={`meal-${index}`}>{meal}</label>
-        </div>
+        </CheckboxContainer>
       ))}
-    </div>
+      <NextButton onClick={handleNext}>Next</NextButton>
+    </QuestionContainer>
   );
 };
 
