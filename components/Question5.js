@@ -1,8 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  QuestionContainer,
+  QuestionHeading,
+  StyledInput,
+  SuggestedOption,
+  NextButton,
+} from "./sharedStyles";
 
-const Question5 = ({ value, onChange }) => {
-  const [suggestions, setSuggestions] = useState([]);
-  const [searchText, setSearchText] = useState(value);
+const Question5 = ({ value, onChange, onNext, onBack }) => {
+  const [inputValue, setInputValue] = useState(value || "");
+  const [suggestedOptions, setSuggestedOptions] = useState([]);
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const popularDiets = [
     "Keto",
@@ -20,46 +33,64 @@ const Question5 = ({ value, onChange }) => {
     "Flexible Dieting (IIFYM)",
   ];
 
-  useEffect(() => {
-    if (searchText) {
-      const filteredDiets = popularDiets.filter((diet) =>
-        diet.toLowerCase().startsWith(searchText.toLowerCase())
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+    if (event.target.value.length >= 3) {
+      setSuggestedOptions(
+        popularDiets.filter((diet) =>
+          diet.toLowerCase().startsWith(event.target.value.toLowerCase())
+        )
       );
-      setSuggestions(filteredDiets);
     } else {
-      setSuggestions([]);
+      setSuggestedOptions([]);
     }
-  }, [searchText]);
-
-  const handleChange = (e) => {
-    setSearchText(e.target.value);
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setSearchText(suggestion);
-    onChange(suggestion);
-    setSuggestions([]);
+  const handleOptionClick = (option) => {
+    setInputValue(option);
+    setSuggestedOptions([]);
+    onChange(option);
+  };
+
+  const handleNext = () => {
+    if (inputValue.length >= 3) {
+      onChange(inputValue);
+      onNext();
+    } else {
+      alert("Please enter at least 3 characters.");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === "ArrowRight") {
+      handleNext();
+    } else if (e.key === "ArrowLeft") {
+      onBack();
+    }
   };
 
   return (
-    <div>
-      <h3>Are you following any diet plans?</h3>
-      <input
+    <QuestionContainer>
+      <QuestionHeading>Are you following any diet plans?</QuestionHeading>
+      <StyledInput
         type="text"
-        value={searchText}
-        onChange={handleChange}
-        onBlur={() => setSuggestions([])}
+        value={inputValue}
+        ref={inputRef}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
-      {suggestions.length > 0 && (
-        <ul>
-          {suggestions.map((suggestion, index) => (
-            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-              {suggestion}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      <div>
+        {suggestedOptions.map((option, index) => (
+          <SuggestedOption
+            key={index}
+            onClick={() => handleOptionClick(option)}
+          >
+            {option}
+          </SuggestedOption>
+        ))}
+      </div>
+      <NextButton onClick={handleNext}>Next</NextButton>
+    </QuestionContainer>
   );
 };
 

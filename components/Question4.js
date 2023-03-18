@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+import { QuestionContainer, QuestionHeading, NextButton } from "./sharedStyles";
 
 const priorities = [
   "Affordable",
@@ -9,10 +11,20 @@ const priorities = [
   "Easy preparation",
 ];
 
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const StyledCheckbox = styled.input`
+  margin-right: 8px;
+`;
+
 const Question4 = ({ value, onValueChange, onNext }) => {
   const handleChange = (event) => {
     if (event.target.checked) {
-      onValueChange([...value, event.target.value]);
+      onValueChange([...(value || []), event.target.value]);
     } else {
       onValueChange(
         value.filter((priority) => priority !== event.target.value)
@@ -20,15 +32,23 @@ const Question4 = ({ value, onValueChange, onNext }) => {
     }
   };
 
+  const handleReady = () => {
+    if (value && value.length > 0) {
+      onNext(value);
+    } else {
+      alert("Please select at least one priority.");
+    }
+  };
+
   return (
-    <div>
-      <h3>
+    <QuestionContainer>
+      <QuestionHeading>
         What should be prioritized in this meal plan? Choose as many or few as
         you desire.
-      </h3>
+      </QuestionHeading>
       {priorities.map((priority, index) => (
-        <div key={index}>
-          <input
+        <CheckboxContainer key={index}>
+          <StyledCheckbox
             type="checkbox"
             id={`priority-${index}`}
             value={priority}
@@ -36,10 +56,10 @@ const Question4 = ({ value, onValueChange, onNext }) => {
             onChange={handleChange}
           />
           <label htmlFor={`priority-${index}`}>{priority}</label>
-        </div>
+        </CheckboxContainer>
       ))}
-      <button onClick={onNext}>Next</button>
-    </div>
+      <NextButton onClick={handleReady}>Next</NextButton>
+    </QuestionContainer>
   );
 };
 
