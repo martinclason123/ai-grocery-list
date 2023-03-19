@@ -69,13 +69,6 @@ const MultiStepForm = ({ questions, onComplete }) => {
           });
         }}
         onNext={handleNext}
-        onValueChange={(newValue) => {
-          setValues((prevValues) => {
-            const newValues = [...prevValues];
-            newValues[currentStep] = newValue;
-            return newValues;
-          });
-        }}
         onBack={handleBack}
       />
       {currentStep > 0 && <BackButton onClick={handleBack}>Back</BackButton>}
