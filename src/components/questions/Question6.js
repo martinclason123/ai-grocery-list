@@ -28,7 +28,7 @@ const Question6 = ({ onFormDataChange, value }) => {
   const priorityList = ["Breakfast", "Lunch", "Dinner"];
   return (
     <QuestionContainer>
-      <Question>Question 6</Question>
+      <Question>What meals would you like this plan to include?</Question>
       {priorityList.map((priority, index) => (
         <CheckBoxContainer key={index}>
           <input

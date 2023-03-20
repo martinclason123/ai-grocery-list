@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const QuestionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #d5d1d1;
+  background-color: transparent;
   border-radius: 1em;
   color: #4a4848;
   font-family: roboto;
   margin: 0 auto;
   font-size: 0.521vw;
+  padding: 2em;
 `;
 
 export const Question = styled.h1`
@@ -35,11 +36,22 @@ export const ErrorMessage = styled.p`
 export const PredictiveTextDrawer = styled.ul`
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  margin-top: -2.1em;
 `;
 export const PredictiveMatch = styled.li`
   text-decoration: none;
   list-style: none;
-  background-color: lightgrey;
+  border: 2px solid lightgrey;
+  font-size: 2em;
+  padding: 0.5em;
+  cursor: pointer;
+  &:hover {
+    background-color: #36454f;
+    color: white;
+  }
 `;
 
 export const CheckBoxContainer = styled.div`

@@ -3,7 +3,8 @@ import * as QuestionComponents from "./questions";
 import {
   FormContainer,
   FormNavigation,
-  NavButton,
+  PrevButton,
+  NextButton,
   ProgressBar,
   ProgressStep,
 } from "@/styles/MultiStepFormStyles";
@@ -97,13 +98,13 @@ const MultiStepForm = ({ setBlinking }) => {
             value={formData[currentQuestionKey]}
           />
           <FormNavigation>
-            <NavButton onClick={goToPreviousStep}>Previous</NavButton>
-            <NavButton
+            <PrevButton onClick={goToPreviousStep}>Previous</PrevButton>
+            <NextButton
               onClick={handleNextClick}
               disabled={isNextStepDisabled()}
             >
               Next
-            </NavButton>
+            </NextButton>
           </FormNavigation>
         </>
       )}

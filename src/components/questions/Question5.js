@@ -49,7 +49,11 @@ const Question5 = ({ onFormDataChange, value }) => {
 
   return (
     <QuestionContainer>
-      <Question>Question 5</Question>
+      <Question>
+        Do you have an allergies? Select any that apply. If your allergy is not
+        listed, click other, type your allergy, and then click add. Add as many
+        as you need.{" "}
+      </Question>
       {restrictedList.map((restriction, index) => (
         <CheckBoxContainer key={index}>
           <input

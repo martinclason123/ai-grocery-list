@@ -18,7 +18,7 @@ const Question1 = ({ onFormDataChange, value }) => {
 
   return (
     <QuestionContainer>
-      <Question>Question 1</Question>
+      <Question>How many adults should this plan feed?</Question>
       <AnswerInput
         ref={inputRef}
         type="number"

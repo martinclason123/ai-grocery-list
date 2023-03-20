@@ -8,6 +8,7 @@ import {
   Navbar,
   RobotLogo,
   StartOverButton,
+  ButtonsContainer,
 } from "../styles/HomePageStyles";
 import MultiStepForm from "../components/MultiStepForm";
 
@@ -126,14 +127,16 @@ export default function Home() {
             Get a custom meal plan, shopping list, and cooking instructions
             tailored to your specific needs, budget, and store.
           </Description>
-          <CallToAction onClick={handleGetStarted}>
-            {hasStartedForm ? "Resume" : "Let's get started!"}
-          </CallToAction>
-          {hasStartedForm && (
-            <StartOverButton onClick={handleStartOver}>
-              Start Over
-            </StartOverButton>
-          )}
+          <ButtonsContainer>
+            <CallToAction onClick={handleGetStarted}>
+              {hasStartedForm ? "Resume" : "Let's get started!"}
+            </CallToAction>
+            {hasStartedForm && (
+              <StartOverButton onClick={handleStartOver}>
+                Start Over
+              </StartOverButton>
+            )}
+          </ButtonsContainer>
         </>
       )}
 

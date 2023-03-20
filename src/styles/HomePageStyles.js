@@ -4,14 +4,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
   padding: 0 1rem;
+  font-family: roboto;
 `;
 
 export const Header = styled.h1`
   font-size: 2.5rem;
-  margin: 1rem;
+  margin: 10rem 0 0 0;
   text-align: center;
 `;
 
@@ -64,19 +64,40 @@ export const RobotLogo = styled.div`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+`;
+
 export const StartOverButton = styled.button`
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
   background-color: #f44336;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 5px;
-  border: none;
-  outline: none;
   cursor: pointer;
-  margin-left: 1rem;
+  border-radius: 4px;
+  margin: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #d32f2f;
+    background-color: #3a75c4;
+    color: white;
   }
 `;
+//   font-size: 1.2rem;
+//   font-weight: bold;
+//   background-color: #f44336;
+//   color: white;
+//   padding: 1rem 2rem;
+//   border-radius: 5px;
+//   border: none;
+//   outline: none;
+//   cursor: pointer;
+//   margin-left: 1rem;
+
+//   &:hover {
+//     background-color: #d32f2f;
+//   }
+// `;

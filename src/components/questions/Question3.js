@@ -46,7 +46,7 @@ const Question3 = ({ onFormDataChange, value }) => {
 
   return (
     <QuestionContainer>
-      <Question>Question 3</Question>
+      <Question>What grocery store do you prefer?</Question>
       <AnswerInput
         ref={inputRef}
         type="text"

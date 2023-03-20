@@ -1,16 +1,68 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
-  // Add your form container styles here
+  width: 90%;
 `;
 
 export const FormNavigation = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 1em;
 `;
 
 export const NavButton = styled.button`
-  font-size: 1em;
+  font-size: 2em;
+  font-family: system-ui, sans-serif;
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  color: black;
+  border: 3px solid black;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25em 1em;
+
+  &:hover {
+    background-color: #3a75c4;
+    color: white;
+  }
+`;
+export const PrevButton = styled.button`
+  font-size: 2em;
+  font-family: system-ui, sans-serif;
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  color: black;
+  border: 0.3em solid #e95a49;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25em 1em;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: #e95a49;
+    color: white;
+  }
+`;
+
+export const NextButton = styled.button`
+  font-size: 2em;
+  font-family: system-ui, sans-serif;
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  color: black;
+  border: 0.3em solid #229091;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25em 1em;
+  transition: all 0.5s;
+  &:hover {
+    background-color: #229091;
+    color: white;
+  }
 `;
 
 export const ProgressBar = styled.div`
@@ -18,7 +70,7 @@ export const ProgressBar = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 20px;
+  margin: 2em;
 `;
 
 export const ProgressStep = styled.div`

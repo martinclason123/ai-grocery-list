@@ -27,7 +27,7 @@ const Question7 = ({ onFormDataChange, value }) => {
   const daysList = ["1", "2", "3", "4", "5", "6", "7"];
   return (
     <QuestionContainer>
-      <Question>Question 7</Question>
+      <Question>How many days should this plan account for?</Question>
       {daysList.map((day, index) => (
         <CheckBoxContainer key={index}>
           <input
