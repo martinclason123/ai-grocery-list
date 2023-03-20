@@ -7,17 +7,22 @@ import {
   CallToAction,
   Navbar,
   RobotLogo,
+  StartOverButton,
 } from "../styles/HomePageStyles";
 import MultiStepForm from "../components/MultiStepForm";
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
   const [initialized, setInitialized] = useState(false);
+  const [hasStartedForm, setHasStartedForm] = useState(false);
+  const [blinking, setBlinking] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const initialShowForm = localStorage.getItem("formOpen") === "true";
+      const hasFormData = localStorage.getItem("formData") !== null;
       setShowForm(initialShowForm);
+      setHasStartedForm(hasFormData);
       setInitialized(true);
     }
   }, []);
@@ -34,10 +39,17 @@ export default function Home() {
 
   const handleGetStarted = () => {
     setShowForm(true);
+    setHasStartedForm(true);
   };
 
   const handleLogoClick = () => {
     setShowForm(false);
+  };
+
+  const handleStartOver = () => {
+    setShowForm(true);
+    localStorage.removeItem("formData");
+    localStorage.removeItem("currentStep");
   };
 
   return (
@@ -68,8 +80,21 @@ export default function Home() {
               rx="5"
               ry="5"
             />
-            <circle cx="35" cy="40" r="5" fill="white" />
-            <circle cx="65" cy="40" r="5" fill="white" />
+            <circle
+              className={`robot-eye${blinking ? " blinking" : ""}`}
+              cx="35"
+              cy="40"
+              r="5"
+              fill="white"
+            />
+            <circle
+              className={`robot-eye${blinking ? " blinking" : ""}`}
+              cx="65"
+              cy="40"
+              r="5"
+              fill="white"
+            />
+
             <rect
               x="40"
               y="55"
@@ -79,6 +104,9 @@ export default function Home() {
               rx="2"
               ry="2"
             />
+            <circle cx="40" cy="60" r="2" fill="black" />
+            <path d="M27 55 Q30 45 33 55 Z" fill="black" />
+            <path d="M67 55 Q70 45 73 55 Z" fill="black" />
           </svg>
         </RobotLogo>
       </Navbar>
@@ -99,12 +127,17 @@ export default function Home() {
             tailored to your specific needs, budget, and store.
           </Description>
           <CallToAction onClick={handleGetStarted}>
-            Let's get started!
+            {hasStartedForm ? "Resume" : "Let's get started!"}
           </CallToAction>
+          {hasStartedForm && (
+            <StartOverButton onClick={handleStartOver}>
+              Start Over
+            </StartOverButton>
+          )}
         </>
       )}
 
-      {showForm && <MultiStepForm />}
+      {showForm && <MultiStepForm setBlinking={setBlinking} />}
     </Container>
   );
 }

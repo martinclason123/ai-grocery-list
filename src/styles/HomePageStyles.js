@@ -49,4 +49,34 @@ export const Navbar = styled.nav`
 
 export const RobotLogo = styled.div`
   cursor: pointer;
+  .robot-eye.blinking {
+    animation: blink 0.2s ease-in-out 3;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      fill: white;
+    }
+    50% {
+      fill: blue;
+    }
+  }
+`;
+
+export const StartOverButton = styled.button`
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #f44336;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 1rem;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
 `;

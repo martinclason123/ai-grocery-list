@@ -11,7 +11,7 @@ import {
 import ConfirmationPage from "./ConfirmationPage";
 const Questions = Object.values(QuestionComponents);
 
-const MultiStepForm = () => {
+const MultiStepForm = ({ setBlinking }) => {
   const urlParams = new URLSearchParams(window.location.search);
   const initialCurrentStep =
     Number(localStorage.getItem("currentStep")) ||
@@ -66,6 +66,14 @@ const MultiStepForm = () => {
   const CurrentQuestion = Questions[currentStep];
   const currentQuestionKey = Object.keys(formData)[currentStep];
 
+  const handleNextClick = () => {
+    setBlinking(true);
+    goToNextStep();
+    setTimeout(() => {
+      setBlinking(false);
+    }, 600);
+  };
+
   const isFormComplete = currentStep === Questions.length;
 
   return (
@@ -90,7 +98,10 @@ const MultiStepForm = () => {
           />
           <FormNavigation>
             <NavButton onClick={goToPreviousStep}>Previous</NavButton>
-            <NavButton onClick={goToNextStep} disabled={isNextStepDisabled()}>
+            <NavButton
+              onClick={handleNextClick}
+              disabled={isNextStepDisabled()}
+            >
               Next
             </NavButton>
           </FormNavigation>
