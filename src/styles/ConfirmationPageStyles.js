@@ -28,3 +28,17 @@ export const Answer = styled.p`
   font-size: 1.1rem;
   margin: 0;
 `;
+
+export const BackButton = styled.button`
+  background-color: #0099ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #007acc;
+  }
+`;

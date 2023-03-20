@@ -5,7 +5,7 @@ import {
   AnswerInput,
 } from "@/styles/QuestionStyles";
 
-const Question2 = ({ onFormDataChange }) => {
+const Question2 = ({ onFormDataChange, value }) => {
   const inputRef = useRef();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const Question2 = ({ onFormDataChange }) => {
         min="1"
         step="1"
         onChange={handleChange}
+        value={value || ""}
       />
     </QuestionContainer>
   );

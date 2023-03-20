@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as QuestionComponents from "./questions";
 import {
   FormContainer,
@@ -12,8 +12,12 @@ import ConfirmationPage from "./ConfirmationPage";
 const Questions = Object.values(QuestionComponents);
 
 const MultiStepForm = () => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCurrentStep =
+    Number(localStorage.getItem("currentStep")) ||
+    Number(urlParams.get("step")) ||
+    0;
+  const initialFormData = JSON.parse(localStorage.getItem("formData")) || {
     adults: "",
     children: "",
     store: "",
@@ -21,14 +25,29 @@ const MultiStepForm = () => {
     restrictions: [],
     meals: [],
     days: "",
-  });
+  };
+
+  const [currentStep, setCurrentStep] = useState(initialCurrentStep);
+  const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+    localStorage.setItem("currentStep", currentStep);
+    localStorage.setItem("formData", JSON.stringify(formData));
+
+    // Update the URL with the current step
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set("step", currentStep);
+    window.history.replaceState({}, "", newUrl.toString());
+  }, [currentStep, formData]);
 
   const handleFormDataChange = (property, value) => {
     setFormData({ ...formData, [property]: value });
   };
 
   const goToPreviousStep = () => {
-    if (currentStep > 0) {
+    if (isFormComplete) {
+      setCurrentStep(Questions.length - 1);
+    } else if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -57,13 +76,17 @@ const MultiStepForm = () => {
         ))}
       </ProgressBar>
       {isFormComplete ? (
-        <ConfirmationPage formData={formData} />
+        <ConfirmationPage
+          formData={formData}
+          onBackButtonClick={goToPreviousStep}
+        />
       ) : (
         <>
           <CurrentQuestion
             onFormDataChange={(value) =>
               handleFormDataChange(currentQuestionKey, value)
             }
+            value={formData[currentQuestionKey]}
           />
           <FormNavigation>
             <NavButton onClick={goToPreviousStep}>Previous</NavButton>

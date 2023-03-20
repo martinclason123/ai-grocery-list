@@ -5,9 +5,10 @@ import {
   QuestionAnswer,
   Question,
   Answer,
+  BackButton,
 } from "@/styles/ConfirmationPageStyles";
 
-const ConfirmationPage = ({ formData }) => {
+const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const formattedFormData = Object.entries(formData);
 
   return (
@@ -19,6 +20,7 @@ const ConfirmationPage = ({ formData }) => {
           <Answer>{JSON.stringify(answer)}</Answer>
         </QuestionAnswer>
       ))}
+      <BackButton onClick={onBackButtonClick}>Back</BackButton>
     </ConfirmationContainer>
   );
 };

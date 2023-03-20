@@ -7,11 +7,11 @@ import {
   AddButton,
 } from "@/styles/QuestionStyles";
 
-const Question5 = ({ onFormDataChange }) => {
+const Question5 = ({ onFormDataChange, value }) => {
   const inputRef = useRef();
   const otherRef = useRef();
 
-  const [restricted, setRestricted] = useState([]);
+  const [restricted, setRestricted] = useState(value || []);
   const [other, setOther] = useState("");
   const [restrictedList, setRestrictedList] = useState([
     "Eggs",

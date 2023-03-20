@@ -37,3 +37,16 @@ export const CallToAction = styled.button`
     color: white;
   }
 `;
+
+export const Navbar = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f8f9fa;
+  padding: 10px;
+  width: 100%;
+`;
+
+export const RobotLogo = styled.div`
+  cursor: pointer;
+`;

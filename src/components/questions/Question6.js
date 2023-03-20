@@ -6,10 +6,10 @@ import {
   CheckBoxLabel,
 } from "@/styles/QuestionStyles";
 
-const Question6 = ({ onFormDataChange }) => {
+const Question6 = ({ onFormDataChange, value }) => {
   const inputRef = useRef();
 
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState(value || []);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -37,6 +37,7 @@ const Question6 = ({ onFormDataChange }) => {
             value={priority}
             id={`priority-${index}`}
             onChange={handleChange}
+            checked={meals.includes(priority)}
           />
           <CheckBoxLabel htmlFor={`priority-${index}`}>
             {priority}

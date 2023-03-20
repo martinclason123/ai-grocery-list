@@ -7,10 +7,10 @@ import {
   PredictiveMatch,
 } from "@/styles/QuestionStyles";
 
-const Question3 = ({ onFormDataChange }) => {
+const Question3 = ({ onFormDataChange, value }) => {
   const inputRef = useRef();
   const [matches, setMatches] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(value || "");
 
   const StoreList = [
     /* Populate this data with the most popular US grocery stores */

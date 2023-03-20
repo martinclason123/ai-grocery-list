@@ -1,3 +1,4 @@
+// Question7.js
 import React, { useEffect, useRef, useState } from "react";
 import {
   QuestionContainer,
@@ -6,10 +7,10 @@ import {
   CheckBoxLabel,
 } from "@/styles/QuestionStyles";
 
-const Question7 = ({ onFormDataChange }) => {
+const Question7 = ({ onFormDataChange, value }) => {
   const inputRef = useRef();
 
-  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedDay, setSelectedDay] = useState(value || "");
 
   useEffect(() => {
     inputRef.current.focus();
