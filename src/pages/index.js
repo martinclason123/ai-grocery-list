@@ -47,10 +47,10 @@ export default function Home() {
     setShowForm(false);
   };
 
-  const handleStartOver = () => {
+  const handleStartOver = async () => {
+    await localStorage.removeItem("formData");
+    await localStorage.removeItem("currentStep");
     setShowForm(true);
-    localStorage.removeItem("formData");
-    localStorage.removeItem("currentStep");
   };
 
   return (

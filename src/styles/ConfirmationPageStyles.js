@@ -9,24 +9,16 @@ export const ConfirmationContainer = styled.div`
   max-width: 600px;
 `;
 
-export const QuestionAnswer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+export const MealList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const Meal = styled.li`
+  font-size: 1.1rem;
   padding: 8px 0;
   border-bottom: 1px solid #ccc;
-`;
-
-export const Question = styled.h3`
-  font-size: 1.1rem;
-  margin: 0;
-`;
-
-export const Answer = styled.p`
-  font-size: 1.1rem;
-  margin: 0;
 `;
 
 export const BackButton = styled.button`
@@ -41,4 +33,16 @@ export const BackButton = styled.button`
   &:hover {
     background-color: #007acc;
   }
+`;
+
+export const LoadingText = styled.p`
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+`;
+
+export const ErrorText = styled.p`
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #cc0000;
 `;
