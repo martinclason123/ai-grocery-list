@@ -46,3 +46,25 @@ export const ErrorText = styled.p`
   font-weight: bold;
   color: #cc0000;
 `;
+
+export const ReplaceButton = styled.button`
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+  &:hover {
+    color: #0099ff;
+  }
+`;
+
+export const MealContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+`;

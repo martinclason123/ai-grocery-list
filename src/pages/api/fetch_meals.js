@@ -27,7 +27,7 @@ const handler = async (req, res) => {
         model: "text-davinci-003",
         prompt: prompt,
         temperature: 0,
-        max_tokens: 100,
+        max_tokens: 500,
         top_p: 1,
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
@@ -37,14 +37,16 @@ const handler = async (req, res) => {
       // Log the API response
       console.log("API response:", response.data);
 
-      const meals = response.data.choices[0].text
-        .split("\n")
-        .filter((meal) => meal.trim() !== "");
+      // Extract the JSON-like string from the API response
+      const jsonResponseText = response.data.choices[0].text.trim();
 
-      // Log the meals
-      console.log("meals:", meals);
+      // Parse the JSON-like string into a JSON object
+      const jsonResponse = JSON.parse(jsonResponseText);
 
-      res.status(200).json({ meals });
+      // Log the JSON response
+      console.log("jsonResponse:", jsonResponse);
+
+      res.status(200).json(jsonResponse);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
