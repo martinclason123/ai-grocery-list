@@ -11,6 +11,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [replacementsUsed, setReplacementsUsed] = useState(0);
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -49,6 +50,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
         newMeals.splice(parseInt(formData.days), 1); // Remove the used extra meal
         return newMeals;
       });
+      setReplacementsUsed((prevReplacementsUsed) => prevReplacementsUsed + 1);
     }
   };
 
@@ -66,13 +68,16 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
               <p>
                 Day {index + 1}: {meal}
               </p>
-              <ReplaceButton onClick={() => handleReplaceMeal(index)}>
-                Replace
-              </ReplaceButton>
+              {extraMeals.length > 0 && (
+                <ReplaceButton onClick={() => handleReplaceMeal(index)}>
+                  Replace
+                </ReplaceButton>
+              )}
             </Meal>
           ))}
         </MealList>
       )}
+      {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
       <BackButton onClick={onBackButtonClick}>Back</BackButton>
     </ConfirmationContainer>
   );
