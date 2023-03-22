@@ -4,6 +4,7 @@ import {
   MealList,
   Meal,
   BackButton,
+  ReplaceButton,
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
@@ -38,6 +39,18 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   }, []);
 
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
+  const extraMeals = meals.slice(parseInt(formData.days));
+
+  const handleReplaceMeal = (mealIndex) => {
+    if (extraMeals.length > 0) {
+      setMeals((prevMeals) => {
+        const newMeals = [...prevMeals];
+        newMeals[mealIndex] = extraMeals[0];
+        newMeals.splice(parseInt(formData.days), 1); // Remove the used extra meal
+        return newMeals;
+      });
+    }
+  };
 
   return (
     <ConfirmationContainer>
@@ -53,6 +66,9 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
               <p>
                 Day {index + 1}: {meal}
               </p>
+              <ReplaceButton onClick={() => handleReplaceMeal(index)}>
+                Replace
+              </ReplaceButton>
             </Meal>
           ))}
         </MealList>
