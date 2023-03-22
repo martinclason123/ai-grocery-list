@@ -6,6 +6,8 @@ import {
   Meal,
   BackButton,
   ReplaceButton,
+  ButtonsContainer,
+  GetRecipes,
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
@@ -15,7 +17,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [replacementsUsed, setReplacementsUsed] = useState(0);
 
   useEffect(() => {
-    const fetchMeals = async () => {
+    const fetchMeals = async (prompt) => {
       setIsLoading(true);
       try {
         const response = await fetch("/api/fetch_meals", {
@@ -56,6 +58,10 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
     }
   };
 
+  const handleGetRecipesClick = () => {
+    console.log(mealsToDisplay);
+  };
+
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
@@ -80,7 +86,10 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
         </MealList>
       )}
       {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
-      <BackButton onClick={onBackButtonClick}>Back</BackButton>
+      <ButtonsContainer>
+        <BackButton onClick={onBackButtonClick}>Back</BackButton>
+        <GetRecipes onClick={handleGetRecipesClick}>Get Recipes</GetRecipes>
+      </ButtonsContainer>
     </ConfirmationContainer>
   );
 };
