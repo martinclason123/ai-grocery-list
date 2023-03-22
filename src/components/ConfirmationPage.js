@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
+import { getRecipes } from "./mealFunctions";
 import {
   ConfirmationContainer,
   MealList,
@@ -66,7 +67,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   };
 
   const handleGetRecipesClick = () => {
-    console.log(mealsToDisplay);
+    getRecipes(formData, mealsToDisplay);
   };
 
   return (
