@@ -11,37 +11,44 @@ import {
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
-  const [meals, setMeals] = useState([]);
+  const initialMeals = JSON.parse(localStorage.getItem("meals")) || [];
+  const [meals, setMeals] = useState(initialMeals);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [replacementsUsed, setReplacementsUsed] = useState(0);
 
   useEffect(() => {
-    const fetchMeals = async (prompt) => {
-      setIsLoading(true);
-      try {
-        const response = await fetch("/api/fetch_meals", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt }),
-        });
+    if (meals.length === 0) {
+      const fetchMeals = async (prompt) => {
+        setIsLoading(true);
+        try {
+          const response = await fetch("/api/fetch_meals", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt }),
+          });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch meals.");
+          if (!response.ok) {
+            throw new Error("Failed to fetch meals.");
+          }
+
+          const data = await response.json();
+          setMeals(data.meals);
+          setIsLoading(false);
+        } catch (error) {
+          setError(error.message);
+          setIsLoading(false);
         }
+      };
 
-        const data = await response.json();
-        setMeals(data.meals);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setIsLoading(false);
-      }
-    };
-
-    const prompt = buildPrompt(formData);
-    fetchMeals(prompt);
+      const prompt = buildPrompt(formData);
+      fetchMeals(prompt);
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("meals", JSON.stringify(meals));
+  }, [meals]);
 
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
   const extraMeals = meals.slice(parseInt(formData.days));
