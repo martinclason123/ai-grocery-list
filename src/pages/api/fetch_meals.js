@@ -12,13 +12,7 @@ const openai = new OpenAIApi(configuration);
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const formData = req.body;
-
-      // Log formData
-      console.log("formData:", formData);
-
-      // Compose the prompt based on the formData
-      const prompt = buildPrompt(formData);
+      const { prompt } = req.body;
 
       // Log the prompt
       console.log("prompt:", prompt);

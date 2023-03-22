@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { buildPrompt } from "@/components/prompts/promptBuilder";
 import {
   ConfirmationContainer,
   MealList,
@@ -20,7 +21,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
         const response = await fetch("/api/fetch_meals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ prompt }),
         });
 
         if (!response.ok) {
@@ -36,7 +37,8 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       }
     };
 
-    fetchMeals();
+    const prompt = buildPrompt(formData);
+    fetchMeals(prompt);
   }, []);
 
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
