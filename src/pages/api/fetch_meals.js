@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
 
-const OPENAI_API_KEY = "";
+const OPENAI_API_KEY = "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";
 console.log(`API key is ${OPENAI_API_KEY}`);
 
 const configuration = new Configuration({
