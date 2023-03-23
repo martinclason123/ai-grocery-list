@@ -6,8 +6,8 @@ const responseHandler = (responseText) => {
   return responseText;
 };
 
-const getRecipes = async (mealsArray, formData) => {
-  const prompt = await recipesPrompt(mealsArray, formData);
+const getRecipes = async (formData, meal) => {
+  const prompt = await recipesPrompt(formData, [meal]);
 
   try {
     const response = await fetch("/api/generic_endpoint", {
@@ -23,7 +23,7 @@ const getRecipes = async (mealsArray, formData) => {
     const data = await response.json();
     const jsonResponseText = data.choices[0].text.trim().slice();
     const processedResponse = responseHandler(jsonResponseText);
-    console.log(processedResponse);
+    return processedResponse;
   } catch (error) {
     console.error(error.message);
   }

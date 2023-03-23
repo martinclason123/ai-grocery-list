@@ -17,6 +17,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [replacementsUsed, setReplacementsUsed] = useState(0);
+  const [recipeCards, setRecipeCards] = useState([]);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -66,8 +67,11 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
     }
   };
 
-  const handleGetRecipesClick = () => {
-    getRecipes(formData, mealsToDisplay);
+  const handleGetRecipesClick = async () => {
+    for (const meal of mealsToDisplay) {
+      const response = await getRecipes(formData, meal);
+      console.log(response);
+    }
   };
 
   return (
