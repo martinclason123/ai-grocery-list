@@ -16,6 +16,7 @@ const recipesPrompt = (formData, meal) => {
   Please provide the recipe in the following format:
   
   Title: ${meal}
+  Preparation Time: 
   Recipe:
   - Ingredient 1
   - Ingredient 2

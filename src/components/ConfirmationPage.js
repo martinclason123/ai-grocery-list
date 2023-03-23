@@ -86,7 +86,10 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
 
       const card = (
         <RecipeCard key={response.title}>
-          <RecipeHeader>{response.title}</RecipeHeader>
+          <div>
+            <RecipeHeader>{response.title}</RecipeHeader>
+            <p>Estimated prep time: {response.prepTime}</p>
+          </div>
           <RecipeHeader>Ingredients</RecipeHeader>
           <IngredientsList>
             {response.recipe.map((ingredient) => (
@@ -99,7 +102,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
           <InstructionsList>
             {response.instructions.map((instruction, index) => (
               <InstructionListItem key={index}>
-                {`Step ${instruction.step} - ${instruction.text}`}
+                {instruction.text}
               </InstructionListItem>
             ))}
           </InstructionsList>

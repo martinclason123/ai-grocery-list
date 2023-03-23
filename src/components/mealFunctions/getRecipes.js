@@ -3,6 +3,7 @@ import { recipesPrompt } from "../prompts";
 
 const responseHandler = (responseText) => {
   const title = responseText.match(/Title: (.*)/)[1];
+  const prepTime = responseText.match(/Preparation Time: (.*)/)[1];
   const recipe = responseText
     .match(/Recipe:\n([\s\S]*?)Instructions:/)[1]
     .trim()
@@ -14,16 +15,14 @@ const responseHandler = (responseText) => {
     .split("\n")
     .map((line) => ({
       step: parseInt(line.match(/- Step (\d+):/)[1], 10),
-      text: line
-        .trim()
-        .slice(line.indexOf(":") + 1)
-        .trim(),
+      text: line.slice(line.indexOf(":") + 2).trim(),
     }));
 
   return {
     title,
     recipe,
     instructions,
+    prepTime,
   };
 };
 
@@ -43,6 +42,7 @@ const getRecipes = async (formData, meal) => {
 
     const data = await response.json();
     const jsonResponseText = data.choices[0].text.trim().slice();
+    console.log(jsonResponseText);
     const processedResponse = responseHandler(jsonResponseText);
     console.log(processedResponse);
     return processedResponse;
