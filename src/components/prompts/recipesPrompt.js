@@ -15,11 +15,12 @@ const recipesPrompt = (formData, meal) => {
   
   Please provide the recipe in the following format:
   
-  Recipe for ${meal}:
+  Title: ${meal}
+  Recipe:
   - Ingredient 1
   - Ingredient 2
   - ...
-  Cooking instructions for ${meal}:
+  Instructions:
   - Step 1:
   - Step 2:
   ...
