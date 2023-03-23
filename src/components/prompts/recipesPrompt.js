@@ -1,13 +1,9 @@
-const recipesPrompt = (formData, mealsArray) => {
-  const mealsList = mealsArray
-    .map((meal, index) => `Meal ${index + 1}: ${meal}`)
-    .join("\n");
-
-  const prompt = `Please provide recipes for the following meals that are suitable for ${
+const recipesPrompt = (formData, meal) => {
+  const prompt = `Please provide a recipe for the following meal that is suitable for ${
     formData.adults
   } adults and ${
     formData.children
-  } children. These recipes should only contain ingredients that have a high chance of being available at ${
+  } children. This recipe should only contain ingredients that have a high chance of being available at ${
     formData.store
   } grocery store and prioritize the following aspects: ${formData.priorities.join(
     ", "
@@ -15,24 +11,15 @@ const recipesPrompt = (formData, mealsArray) => {
     ", "
   )}.
   
-  ${mealsList}
+  ${meal}
   
-  Please provide the recipes in the following format:
+  Please provide the recipe in the following format:
   
-  Recipe for Meal 1:
+  Recipe for ${meal}:
   - Ingredient 1
   - Ingredient 2
   - ...
-  Cooking instructions for Meal 1:
-  - Step 1:
-  - Step 2:
-  ...
-  
-  Recipe for Meal 2:
-  - Ingredient 1
-  - Ingredient 2
-  - ...
-  Cooking instructions for Meal 2:
+  Cooking instructions for ${meal}:
   - Step 1:
   - Step 2:
   ...
