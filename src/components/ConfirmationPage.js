@@ -75,11 +75,11 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   };
 
   const handleGetRecipesClick = async () => {
-    const recipeCardElements = [];
+    const recipeCardElements = [...recipeCards];
 
     for (const meal of mealsToDisplay) {
       const response = await getRecipes(formData, meal);
-      console.log(response);
+
       const card = (
         <RecipeCard key={response.title}>
           <RecipeHeader>{response.title}</RecipeHeader>
@@ -103,9 +103,8 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       );
 
       recipeCardElements.push(card);
+      setRecipeCards([...recipeCardElements]);
     }
-
-    setRecipeCards(recipeCardElements);
   };
 
   return (
