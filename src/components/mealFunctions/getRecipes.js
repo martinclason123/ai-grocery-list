@@ -2,8 +2,29 @@
 import { recipesPrompt } from "../prompts";
 
 const responseHandler = (responseText) => {
-  // Modify this function to process the plain text response as needed
-  return responseText;
+  const title = responseText.match(/Title: (.*)/)[1];
+  const recipe = responseText
+    .match(/Recipe:\n([\s\S]*?)Instructions:/)[1]
+    .trim()
+    .split("\n")
+    .map((line) => line.trim().slice(2));
+  const instructions = responseText
+    .match(/Instructions:\n([\s\S]*)/)[1]
+    .trim()
+    .split("\n")
+    .map((line) => ({
+      step: parseInt(line.match(/- Step (\d+):/)[1], 10),
+      text: line
+        .trim()
+        .slice(line.indexOf(":") + 1)
+        .trim(),
+    }));
+
+  return {
+    title,
+    recipe,
+    instructions,
+  };
 };
 
 const getRecipes = async (formData, meal) => {
