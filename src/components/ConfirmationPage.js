@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
 import { getRecipes } from "./mealFunctions";
+import { Accordion } from "@/snippets";
 import {
   ConfirmationContainer,
   MealList,
@@ -28,6 +29,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [replacementsUsed, setReplacementsUsed] = useState(0);
   const [recipeCards, setRecipeCards] = useState([]);
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
+  const [openAccordion, setOpenAccordion] = useState(0);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -85,28 +87,30 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       const response = await getRecipes(formData, meal);
 
       const card = (
-        <RecipeCard key={response.title}>
-          <div>
-            <RecipeHeader>{response.title}</RecipeHeader>
+        <Accordion key={response.title} index={index} defaultOpen={index === 0}>
+          <RecipeCard>
+            <div>
+              <RecipeHeader>{response.title}</RecipeHeader>
+            </div>
             <p>Estimated prep time: {response.prepTime}</p>
-          </div>
-          <RecipeHeader>Ingredients</RecipeHeader>
-          <IngredientsList>
-            {response.recipe.map((ingredient) => (
-              <IngredientListItem key={ingredient}>
-                {ingredient}
-              </IngredientListItem>
-            ))}
-          </IngredientsList>
-          <RecipeHeader>Cooking Instructions</RecipeHeader>
-          <InstructionsList>
-            {response.instructions.map((instruction, index) => (
-              <InstructionListItem key={index}>
-                {instruction.text}
-              </InstructionListItem>
-            ))}
-          </InstructionsList>
-        </RecipeCard>
+            <RecipeHeader>Ingredients</RecipeHeader>
+            <IngredientsList>
+              {response.recipe.map((ingredient) => (
+                <IngredientListItem key={ingredient}>
+                  {ingredient}
+                </IngredientListItem>
+              ))}
+            </IngredientsList>
+            <RecipeHeader>Cooking Instructions</RecipeHeader>
+            <InstructionsList>
+              {response.instructions.map((instruction, index) => (
+                <InstructionListItem key={index}>
+                  {instruction.text}
+                </InstructionListItem>
+              ))}
+            </InstructionsList>
+          </RecipeCard>
+        </Accordion>
       );
 
       recipeCardElements.push(card);
