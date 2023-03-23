@@ -82,3 +82,32 @@ export const GetRecipes = styled.button`
     background-color: #007acc;
   }
 `;
+
+// Add these styled components at the bottom of the file
+export const RecipeCard = styled.div`
+  /* Your styles for the recipe card container */
+`;
+
+export const RecipeHeader = styled.h2`
+  /* Your styles for the recipe header */
+`;
+
+export const IngredientsList = styled.ul`
+  /* Your styles for the ingredients list */
+`;
+
+export const IngredientListItem = styled.li`
+  /* Your styles for the ingredient list item */
+`;
+
+export const InstructionsList = styled.ol`
+  /* Your styles for the instructions list */
+`;
+
+export const InstructionListItem = styled.li`
+  /* Your styles for the instruction list item */
+`;
+
+export const RecipesContainer = styled.div`
+  /* Your styles for the recipes container */
+`;

@@ -44,6 +44,7 @@ const getRecipes = async (formData, meal) => {
     const data = await response.json();
     const jsonResponseText = data.choices[0].text.trim().slice();
     const processedResponse = responseHandler(jsonResponseText);
+    console.log(processedResponse);
     return processedResponse;
   } catch (error) {
     console.error(error.message);

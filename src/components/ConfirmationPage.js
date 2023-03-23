@@ -9,6 +9,13 @@ import {
   ReplaceButton,
   ButtonsContainer,
   GetRecipes,
+  RecipeCard,
+  RecipeHeader,
+  IngredientsList,
+  IngredientListItem,
+  InstructionsList,
+  InstructionListItem,
+  RecipesContainer,
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
@@ -68,10 +75,37 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   };
 
   const handleGetRecipesClick = async () => {
+    const recipeCardElements = [];
+
     for (const meal of mealsToDisplay) {
       const response = await getRecipes(formData, meal);
       console.log(response);
+      const card = (
+        <RecipeCard key={response.title}>
+          <RecipeHeader>{response.title}</RecipeHeader>
+          <RecipeHeader>Ingredients</RecipeHeader>
+          <IngredientsList>
+            {response.recipe.map((ingredient) => (
+              <IngredientListItem key={ingredient}>
+                {ingredient}
+              </IngredientListItem>
+            ))}
+          </IngredientsList>
+          <RecipeHeader>Cooking Instructions</RecipeHeader>
+          <InstructionsList>
+            {response.instructions.map((instruction, index) => (
+              <InstructionListItem key={index}>
+                {`Step ${instruction.step} - ${instruction.text}`}
+              </InstructionListItem>
+            ))}
+          </InstructionsList>
+        </RecipeCard>
+      );
+
+      recipeCardElements.push(card);
     }
+
+    setRecipeCards(recipeCardElements);
   };
 
   return (
@@ -102,6 +136,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
         <BackButton onClick={onBackButtonClick}>Back</BackButton>
         <GetRecipes onClick={handleGetRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
+      <RecipesContainer>{recipeCards}</RecipesContainer>
     </ConfirmationContainer>
   );
 };

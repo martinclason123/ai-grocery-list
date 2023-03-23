@@ -13,8 +13,6 @@ const handler = async (req, res) => {
     try {
       const { prompt } = req.body;
 
-      console.log("prompt:", prompt);
-
       const response = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: prompt,
@@ -24,8 +22,6 @@ const handler = async (req, res) => {
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
       });
-
-      console.log("API response:", response.data);
 
       res.status(200).json(response.data);
     } catch (error) {
