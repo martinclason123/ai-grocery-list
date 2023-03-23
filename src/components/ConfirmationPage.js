@@ -16,6 +16,8 @@ import {
   InstructionsList,
   InstructionListItem,
   RecipesContainer,
+  LoadingContainer,
+  LoadingTitle,
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
@@ -25,6 +27,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [error, setError] = useState(null);
   const [replacementsUsed, setReplacementsUsed] = useState(0);
   const [recipeCards, setRecipeCards] = useState([]);
+  const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -77,7 +80,8 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const handleGetRecipesClick = async () => {
     const recipeCardElements = [...recipeCards];
 
-    for (const meal of mealsToDisplay) {
+    for (const [index, meal] of mealsToDisplay.entries()) {
+      setCurrentLoadingIndex(index + 1);
       const response = await getRecipes(formData, meal);
 
       const card = (
@@ -105,6 +109,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       recipeCardElements.push(card);
       setRecipeCards([...recipeCardElements]);
     }
+    setCurrentLoadingIndex(null);
   };
 
   return (
@@ -135,7 +140,16 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
         <BackButton onClick={onBackButtonClick}>Back</BackButton>
         <GetRecipes onClick={handleGetRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
-      <RecipesContainer>{recipeCards}</RecipesContainer>
+      <RecipesContainer>
+        <RecipesContainer>
+          {recipeCards}
+          {currentLoadingIndex !== null && (
+            <div>
+              <h1>Loading Recipe {currentLoadingIndex}</h1>
+            </div>
+          )}
+        </RecipesContainer>
+      </RecipesContainer>
     </ConfirmationContainer>
   );
 };

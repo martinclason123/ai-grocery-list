@@ -111,3 +111,11 @@ export const InstructionListItem = styled.li`
 export const RecipesContainer = styled.div`
   /* Your styles for the recipes container */
 `;
+
+export const LoadingContainer = styled.div`
+  // Your styles here
+`;
+
+export const LoadingTitle = styled.h2`
+  // Your styles here
+`;
