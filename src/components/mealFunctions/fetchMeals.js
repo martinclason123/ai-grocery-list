@@ -1,37 +1,21 @@
-const fetchMeals = async (formData, setIsLoading, setError, setMeals) => {
+const fetchMeals = async (prompt, setIsLoading, setMeals, setError) => {
   setIsLoading(true);
-  setError(null);
-
   try {
     const response = await fetch("/api/fetch_meals", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      setMeals(data.mealPlan);
-      sessionStorage.setItem("meals", JSON.stringify(data.mealPlan));
-    } else {
-      const errorData = await response.json();
-      setError(
-        `Error: ${
-          errorData.message ||
-          "An error occurred while fetching meals. Please try again."
-        }`
-      );
+    if (!response.ok) {
+      throw new Error("Failed to fetch meals.");
     }
+
+    const data = await response.json();
+    setMeals(data.meals);
+    setIsLoading(false);
   } catch (error) {
-    setError(
-      `Error: ${
-        error.message ||
-        "An error occurred while fetching meals. Please try again."
-      }`
-    );
-  } finally {
+    setError(error.message);
     setIsLoading(false);
   }
 };

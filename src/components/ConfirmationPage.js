@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
 import {
-  getRecipes,
   handleGetRecipesClick,
   replaceMeal,
+  fetchMeals,
 } from "./mealFunctions";
 import {
   ConfirmationContainer,
@@ -27,30 +27,8 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
 
   useEffect(() => {
     if (meals.length === 0) {
-      const fetchMeals = async (prompt) => {
-        setIsLoading(true);
-        try {
-          const response = await fetch("/api/fetch_meals", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt }),
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch meals.");
-          }
-
-          const data = await response.json();
-          setMeals(data.meals);
-          setIsLoading(false);
-        } catch (error) {
-          setError(error.message);
-          setIsLoading(false);
-        }
-      };
-
       const prompt = buildPrompt(formData);
-      fetchMeals(prompt);
+      fetchMeals(prompt, setIsLoading, setMeals, setError);
     }
   }, []);
 
@@ -73,6 +51,12 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       setRecipeCards,
       setCurrentLoadingIndex
     );
+  };
+
+  const handleNewMealsClick = () => {
+    const prompt = buildPrompt(formData);
+    fetchMeals(prompt, setIsLoading, setMeals, setError);
+    setRecipeCards([]);
   };
 
   return (
@@ -100,7 +84,13 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       )}
       {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
       <ButtonsContainer>
-        <BackButton onClick={onBackButtonClick}>Back</BackButton>
+        {/* Instead of being a "back" button, this should fire fetchMeals again.
+            It should say "New Meals". Which should result in new meals and replacement 
+            meals based off what the existing form data. Basically the page should 
+            act as if it is the first time the user has gotten to this page. 
+            Any recipes should be cleared out as well
+        */}
+        <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
         <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
       <RecipesContainer>
