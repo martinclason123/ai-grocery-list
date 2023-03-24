@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
-import { getRecipes, handleGetRecipesClick } from "./mealFunctions";
-import { Accordion } from "@/snippets";
+import {
+  getRecipes,
+  handleGetRecipesClick,
+  replaceMeal,
+} from "./mealFunctions";
 import {
   ConfirmationContainer,
   MealList,
@@ -59,15 +62,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const extraMeals = meals.slice(parseInt(formData.days));
 
   const handleReplaceMeal = (mealIndex) => {
-    if (extraMeals.length > 0) {
-      setMeals((prevMeals) => {
-        const newMeals = [...prevMeals];
-        newMeals[mealIndex] = extraMeals[0];
-        newMeals.splice(parseInt(formData.days), 1); // Remove the used extra meal
-        return newMeals;
-      });
-      setReplacementsUsed((prevReplacementsUsed) => prevReplacementsUsed + 1);
-    }
+    replaceMeal(mealIndex, formData, extraMeals, setMeals, setReplacementsUsed);
   };
 
   const handleRecipesClick = () => {
