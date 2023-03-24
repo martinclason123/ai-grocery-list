@@ -16,7 +16,7 @@ import {
   RecipesContainer,
 } from "@/styles/ConfirmationPageStyles";
 
-const ConfirmationPage = ({ formData, onBackButtonClick }) => {
+const ConfirmationPage = ({ formData }) => {
   const initialMeals = JSON.parse(localStorage.getItem("meals")) || [];
   const [meals, setMeals] = useState(initialMeals);
   const [isLoading, setIsLoading] = useState(false);

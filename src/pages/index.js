@@ -17,6 +17,7 @@ export default function Home() {
   const [initialized, setInitialized] = useState(false);
   const [hasStartedForm, setHasStartedForm] = useState(false);
   const [blinking, setBlinking] = useState(false);
+  const [newForm, setNewForm] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -47,10 +48,20 @@ export default function Home() {
     setShowForm(false);
   };
 
-  const handleStartOver = async () => {
-    await localStorage.removeItem("formData");
-    await localStorage.removeItem("currentStep");
-    setShowForm(true);
+  const handleStartOver = () => {
+    localStorage.removeItem("formData");
+    localStorage.removeItem("currentStep");
+    localStorage.removeItem("meals");
+    setShowForm(false); // Add this line to temporarily hide the form
+
+    // Update the URL with the first step
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set("step", 0);
+    window.history.replaceState({}, "", newUrl.toString());
+
+    setTimeout(() => {
+      setShowForm(true); // Show the form again after a brief delay
+    }, 100);
   };
 
   return (
