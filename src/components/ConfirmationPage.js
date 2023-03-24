@@ -18,10 +18,12 @@ import {
 
 const ConfirmationPage = ({ formData }) => {
   const initialMeals = JSON.parse(localStorage.getItem("meals")) || [];
+  /* This logic should be repeated, except it should hold recipe data */
   const [meals, setMeals] = useState(initialMeals);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [replacementsUsed, setReplacementsUsed] = useState(0);
+  /* This should load the recipe cards right away if the recipe data is in local storage */
   const [recipeCards, setRecipeCards] = useState([]);
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
 
@@ -35,6 +37,8 @@ const ConfirmationPage = ({ formData }) => {
   useEffect(() => {
     localStorage.setItem("meals", JSON.stringify(meals));
   }, [meals]);
+
+  /* I would also like the recipes data to be saved in local storage, so that on refresh, that data does not need to be fetched again by the API */
 
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
   const extraMeals = meals.slice(parseInt(formData.days));
@@ -84,13 +88,9 @@ const ConfirmationPage = ({ formData }) => {
       )}
       {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
       <ButtonsContainer>
-        {/* Instead of being a "back" button, this should fire fetchMeals again.
-            It should say "New Meals". Which should result in new meals and replacement 
-            meals based off what the existing form data. Basically the page should 
-            act as if it is the first time the user has gotten to this page. 
-            Any recipes should be cleared out as well
-        */}
         <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
+        {/* The get recipes button should not be shown if recipes have already been fetched or are in local storage */}
+
         <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
       <RecipesContainer>

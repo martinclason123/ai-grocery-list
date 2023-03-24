@@ -52,6 +52,9 @@ export default function Home() {
     localStorage.removeItem("formData");
     localStorage.removeItem("currentStep");
     localStorage.removeItem("meals");
+    localStorage.removeItem("recipeCards");
+    localStorage.removeItem("recipeData");
+
     setShowForm(false); // Add this line to temporarily hide the form
 
     // Update the URL with the first step

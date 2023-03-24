@@ -1,3 +1,7 @@
+/* This should be rewritten to check for local storage. If there is not an array in localStorage that holds the data used to fill out the cards
+   one should be created. When a response for a recipe is received from the API, that response should be pushed into that array.  If local storage exist, 
+   it should be used to fill out the cards rather than another API card
+*/
 import getRecipes from "./getRecipes";
 import { Accordion } from "@/snippets";
 import {
@@ -16,11 +20,19 @@ const handleGetRecipesClick = async (
   setRecipeCards,
   setCurrentLoadingIndex
 ) => {
+  const storedRecipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
   const recipeCardElements = [...recipeCards];
 
   for (const [index, meal] of mealsToDisplay.entries()) {
     setCurrentLoadingIndex(index + 1);
-    const response = await getRecipes(formData, meal);
+    let response;
+    if (storedRecipeData[index]) {
+      response = storedRecipeData[index];
+    } else {
+      response = await getRecipes(formData, meal);
+      storedRecipeData[index] = response;
+      localStorage.setItem("recipeData", JSON.stringify(storedRecipeData));
+    }
 
     const card = (
       <Accordion key={response.title} index={index} defaultOpen={index === 0}>
