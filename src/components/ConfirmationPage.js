@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
-import { getRecipes } from "./mealFunctions";
+import { getRecipes, handleGetRecipesClick } from "./mealFunctions";
 import { Accordion } from "@/snippets";
 import {
   ConfirmationContainer,
@@ -10,15 +10,7 @@ import {
   ReplaceButton,
   ButtonsContainer,
   GetRecipes,
-  RecipeCard,
-  RecipeHeader,
-  IngredientsList,
-  IngredientListItem,
-  InstructionsList,
-  InstructionListItem,
   RecipesContainer,
-  LoadingContainer,
-  LoadingTitle,
 } from "@/styles/ConfirmationPageStyles";
 
 const ConfirmationPage = ({ formData, onBackButtonClick }) => {
@@ -29,7 +21,6 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
   const [replacementsUsed, setReplacementsUsed] = useState(0);
   const [recipeCards, setRecipeCards] = useState([]);
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
-  const [openAccordion, setOpenAccordion] = useState(0);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -78,47 +69,17 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       setReplacementsUsed((prevReplacementsUsed) => prevReplacementsUsed + 1);
     }
   };
-  /* I would like this code to be moved to handleGetRecipesClick.js in src/components/mealFunctions */
-  const handleGetRecipesClick = async () => {
-    const recipeCardElements = [...recipeCards];
 
-    for (const [index, meal] of mealsToDisplay.entries()) {
-      setCurrentLoadingIndex(index + 1);
-      const response = await getRecipes(formData, meal);
-
-      const card = (
-        <Accordion key={response.title} index={index} defaultOpen={index === 0}>
-          <RecipeCard>
-            <div>
-              <RecipeHeader>{response.title}</RecipeHeader>
-            </div>
-            <p>Estimated prep time: {response.prepTime}</p>
-            <RecipeHeader>Ingredients</RecipeHeader>
-            <IngredientsList>
-              {response.recipe.map((ingredient) => (
-                <IngredientListItem key={ingredient}>
-                  {ingredient}
-                </IngredientListItem>
-              ))}
-            </IngredientsList>
-            <RecipeHeader>Cooking Instructions</RecipeHeader>
-            <InstructionsList>
-              {response.instructions.map((instruction, index) => (
-                <InstructionListItem key={index}>
-                  {instruction.text}
-                </InstructionListItem>
-              ))}
-            </InstructionsList>
-          </RecipeCard>
-        </Accordion>
-      );
-
-      recipeCardElements.push(card);
-      setRecipeCards([...recipeCardElements]);
-    }
-    setCurrentLoadingIndex(null);
+  const handleRecipesClick = () => {
+    handleGetRecipesClick(
+      formData,
+      mealsToDisplay,
+      recipeCards,
+      setRecipeCards,
+      setCurrentLoadingIndex
+    );
   };
-  /*end of code that should be exported */
+
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
@@ -145,7 +106,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
       <ButtonsContainer>
         <BackButton onClick={onBackButtonClick}>Back</BackButton>
-        <GetRecipes onClick={handleGetRecipesClick}>Get Recipes</GetRecipes>
+        <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
       <RecipesContainer>
         <RecipesContainer>
