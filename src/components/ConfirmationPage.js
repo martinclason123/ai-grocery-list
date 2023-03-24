@@ -78,7 +78,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
       setReplacementsUsed((prevReplacementsUsed) => prevReplacementsUsed + 1);
     }
   };
-
+  /* I would like this code to be moved to handleGetRecipesClick.js in src/components/mealFunctions */
   const handleGetRecipesClick = async () => {
     const recipeCardElements = [...recipeCards];
 
@@ -118,7 +118,7 @@ const ConfirmationPage = ({ formData, onBackButtonClick }) => {
     }
     setCurrentLoadingIndex(null);
   };
-
+  /*end of code that should be exported */
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
