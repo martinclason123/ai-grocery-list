@@ -6,6 +6,7 @@ import {
 } from "@/styles/ConfirmationPageStyles";
 
 import { shoppingListPrompt } from "./prompts";
+import { getGroceryList } from "./mealFunctions";
 
 const ShoppingList = ({ listData, formData }) => {
   const handleGetShoppingList = (data) => {
@@ -36,7 +37,7 @@ const ShoppingList = ({ listData, formData }) => {
     console.log("preferred store:", store);
 
     const prompt = shoppingListPrompt(allergies, store, ingredients, titles);
-    console.log(prompt);
+    getGroceryList(prompt);
   };
   return (
     <ShoppingListContainer>
