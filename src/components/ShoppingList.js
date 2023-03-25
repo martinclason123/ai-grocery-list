@@ -5,10 +5,48 @@ import {
   GetShoppingList,
 } from "@/styles/ConfirmationPageStyles";
 
-const ShoppingList = () => {
+import { shoppingListPrompt } from "./prompts";
+
+const ShoppingList = ({ listData, formData }) => {
+  const handleGetShoppingList = (data) => {
+    const titles = data.map((item) => item.title).join(", ");
+    const ingredients = data
+      .map((item) => item.recipe)
+      .flat()
+      .join(", ");
+
+    console.log("Titles:", titles);
+    console.log("Ingredients:", ingredients);
+    console.log(typeof formData);
+    console.log(formData);
+    let allergies;
+
+    const allergiesList = formData.restrictions.join(", ");
+    if (allergiesList === "") {
+      allergies = "";
+    } else {
+      allergies = `I have severe allergies to the following: ${allergiesList}, ensure they are not included
+        in the items on this shopping list.
+        `;
+    }
+    // const allergies = `${formData.restrictions.join(", ")}`;
+
+    console.log(allergies);
+    const store = formData.store;
+    console.log("preferred store:", store);
+
+    const prompt = shoppingListPrompt(allergies, store, ingredients, titles);
+    console.log(prompt);
+  };
   return (
     <ShoppingListContainer>
-      <GetShoppingList>Get Shopping List</GetShoppingList>
+      <GetShoppingList
+        onClick={() => {
+          handleGetShoppingList(listData);
+        }}
+      >
+        Get Shopping List
+      </GetShoppingList>
     </ShoppingListContainer>
   );
 };

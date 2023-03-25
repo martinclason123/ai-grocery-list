@@ -116,7 +116,10 @@ const ConfirmationPage = ({ formData }) => {
       </RecipesContainer>
       {/* if there is data in localStorage "recipeData" AND all the recipes have finished loading, the shopping list container should be rendered */}
       {localStorage.getItem("recipeData") && currentLoadingIndex === null ? (
-        <ShoppingList />
+        <ShoppingList
+          listData={JSON.parse(localStorage.getItem("recipeData"))}
+          formData={formData}
+        />
       ) : null}
     </ConfirmationContainer>
   );
