@@ -119,3 +119,28 @@ export const LoadingContainer = styled.div`
 export const LoadingTitle = styled.h2`
   // Your styles here
 `;
+
+export const ShoppingListContainer = styled.div`
+  // styles here
+`;
+
+export const GroceryList = styled.ul`
+  // styles here
+`;
+export const GroceryItem = styled.li`
+  //styles here
+`;
+
+export const GetShoppingList = styled.button`
+  background-color: #0099ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #007acc;
+  }
+`;

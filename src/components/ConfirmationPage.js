@@ -16,6 +16,8 @@ import {
   RecipesContainer,
 } from "@/styles/ConfirmationPageStyles";
 
+import ShoppingList from "./ShoppingList";
+
 const ConfirmationPage = ({ formData }) => {
   const initialMeals = JSON.parse(localStorage.getItem("meals")) || [];
   const [meals, setMeals] = useState(initialMeals);
@@ -112,6 +114,10 @@ const ConfirmationPage = ({ formData }) => {
           )}
         </RecipesContainer>
       </RecipesContainer>
+      {/* if there is data in localStorage "recipeData" AND all the recipes have finished loading, the shopping list container should be rendered */}
+      {localStorage.getItem("recipeData") && currentLoadingIndex === null ? (
+        <ShoppingList />
+      ) : null}
     </ConfirmationContainer>
   );
 };
