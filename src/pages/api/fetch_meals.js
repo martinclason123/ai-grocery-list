@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const OPENAI_API_KEY = "";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 console.log(`API key is ${OPENAI_API_KEY}`);
 
 const configuration = new Configuration({
