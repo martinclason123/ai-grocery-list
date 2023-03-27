@@ -18,53 +18,62 @@ const handleGetRecipesClick = async (
   mealsToDisplay,
   recipeCards,
   setRecipeCards,
-  setCurrentLoadingIndex
+  setCurrentLoadingIndex,
+  recipesError,
+  setRecipesError
 ) => {
   const storedRecipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
   const recipeCardElements = [...recipeCards];
 
   for (const [index, meal] of mealsToDisplay.entries()) {
-    setCurrentLoadingIndex(index + 1);
-    let response;
-    if (storedRecipeData[index]) {
-      response = storedRecipeData[index];
-    } else {
-      response = await getRecipes(formData, meal);
-      storedRecipeData[index] = response;
-      localStorage.setItem("recipeData", JSON.stringify(storedRecipeData));
+    try {
+      setCurrentLoadingIndex(index + 1);
+      let response;
+      if (storedRecipeData[index]) {
+        response = storedRecipeData[index];
+      } else {
+        response = await getRecipes(formData, meal);
+        storedRecipeData[index] = response;
+        localStorage.setItem("recipeData", JSON.stringify(storedRecipeData));
+      }
+
+      const card = (
+        <Accordion key={response.title} index={index} defaultOpen={index === 0}>
+          <RecipeCard>
+            <div>
+              <RecipeHeader>{response.title}</RecipeHeader>
+            </div>
+            <p>Estimated prep time: {response.prepTime}</p>
+            <RecipeHeader>Ingredients</RecipeHeader>
+            <IngredientsList>
+              {response.recipe.map((ingredient) => (
+                <IngredientListItem key={ingredient}>
+                  {ingredient}
+                </IngredientListItem>
+              ))}
+            </IngredientsList>
+            <RecipeHeader>Cooking Instructions</RecipeHeader>
+            <InstructionsList>
+              {response.instructions.map((instruction, index) => (
+                <InstructionListItem key={index}>
+                  {instruction.text}
+                </InstructionListItem>
+              ))}
+            </InstructionsList>
+          </RecipeCard>
+        </Accordion>
+      );
+      setCurrentLoadingIndex(null);
+
+      recipeCardElements.push(card);
+
+      setRecipeCards([...recipeCardElements]);
+    } catch (error) {
+      setRecipesError(true);
+      setCurrentLoadingIndex(null);
+      return;
     }
-
-    const card = (
-      <Accordion key={response.title} index={index} defaultOpen={index === 0}>
-        <RecipeCard>
-          <div>
-            <RecipeHeader>{response.title}</RecipeHeader>
-          </div>
-          <p>Estimated prep time: {response.prepTime}</p>
-          <RecipeHeader>Ingredients</RecipeHeader>
-          <IngredientsList>
-            {response.recipe.map((ingredient) => (
-              <IngredientListItem key={ingredient}>
-                {ingredient}
-              </IngredientListItem>
-            ))}
-          </IngredientsList>
-          <RecipeHeader>Cooking Instructions</RecipeHeader>
-          <InstructionsList>
-            {response.instructions.map((instruction, index) => (
-              <InstructionListItem key={index}>
-                {instruction.text}
-              </InstructionListItem>
-            ))}
-          </InstructionsList>
-        </RecipeCard>
-      </Accordion>
-    );
-
-    recipeCardElements.push(card);
-    setRecipeCards([...recipeCardElements]);
   }
-  setCurrentLoadingIndex(null);
 };
 
 export default handleGetRecipesClick;

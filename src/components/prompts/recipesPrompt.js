@@ -12,7 +12,7 @@ const recipesPrompt = (formData, meal) => {
   )}.
   
   ${meal}
-  
+  Choose a recipe that has no more than 20 ingredients
   Please provide the recipe in the following format:
   
   Title: ${meal}

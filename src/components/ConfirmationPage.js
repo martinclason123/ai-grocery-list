@@ -25,6 +25,7 @@ const ConfirmationPage = ({ formData }) => {
   const [recipeCards, setRecipeCards] = useState([]);
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
   const [allowReplace, setAllowReplace] = useState(true);
+  const [recipesError, setRecipesError] = useState(false);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -52,12 +53,15 @@ const ConfirmationPage = ({ formData }) => {
 
   const handleRecipesClick = () => {
     setAllowReplace(false);
+    setRecipesError(false);
     handleGetRecipesClick(
       formData,
       mealsToDisplay,
       recipeCards,
       setRecipeCards,
-      setCurrentLoadingIndex
+      setCurrentLoadingIndex,
+      recipesError,
+      setRecipesError
     );
   };
 
@@ -102,14 +106,23 @@ const ConfirmationPage = ({ formData }) => {
         {isLoading === false && localStorage.getItem("recipeData") === null && (
           <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
         )}
+        {recipesError && (
+          <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
+        )}
       </ButtonsContainer>
       <RecipesContainer>
         <RecipesContainer>
-          {recipeCards}
-          {currentLoadingIndex !== null && (
-            <div>
-              <h1>Loading Recipe {currentLoadingIndex}</h1>
-            </div>
+          {!recipesError ? (
+            <>
+              {recipeCards}
+              {currentLoadingIndex !== null && (
+                <div>
+                  <h1>Loading Recipe {currentLoadingIndex}</h1>
+                </div>
+              )}
+            </>
+          ) : (
+            <p>Error loading recipes, please try again</p>
           )}
         </RecipesContainer>
       </RecipesContainer>
