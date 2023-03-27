@@ -24,6 +24,7 @@ const ConfirmationPage = ({ formData }) => {
   const [replacementsUsed, setReplacementsUsed] = useState(0);
   const [recipeCards, setRecipeCards] = useState([]);
   const [currentLoadingIndex, setCurrentLoadingIndex] = useState(null);
+  const [allowReplace, setAllowReplace] = useState(true);
 
   useEffect(() => {
     if (meals.length === 0) {
@@ -50,6 +51,7 @@ const ConfirmationPage = ({ formData }) => {
   };
 
   const handleRecipesClick = () => {
+    setAllowReplace(false);
     handleGetRecipesClick(
       formData,
       mealsToDisplay,
@@ -63,6 +65,7 @@ const ConfirmationPage = ({ formData }) => {
     const prompt = buildPrompt(formData);
     localStorage.removeItem("recipeData");
     fetchMeals(prompt, setIsLoading, setMeals, setError);
+    allowReplace(true);
     setRecipeCards([]);
   };
 
@@ -80,7 +83,7 @@ const ConfirmationPage = ({ formData }) => {
               <p>
                 Day {index + 1}: {meal}
               </p>
-              {extraMeals.length > 0 && (
+              {allowReplace && extraMeals.length > 0 && (
                 <ReplaceButton onClick={() => handleReplaceMeal(index)}>
                   Replace
                 </ReplaceButton>
@@ -89,7 +92,11 @@ const ConfirmationPage = ({ formData }) => {
           ))}
         </MealList>
       )}
-      {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
+
+      {allowReplace && replacementsUsed > 0 && (
+        <p>Replacements left: {extraMeals.length}</p>
+      )}
+
       <ButtonsContainer>
         <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
         <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
