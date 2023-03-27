@@ -16,8 +16,6 @@ import {
   RecipesContainer,
 } from "@/styles/ConfirmationPageStyles";
 
-import ShoppingList from "./ShoppingList";
-
 const ConfirmationPage = ({ formData }) => {
   const initialMeals = JSON.parse(localStorage.getItem("meals")) || [];
   const [meals, setMeals] = useState(initialMeals);
@@ -63,6 +61,7 @@ const ConfirmationPage = ({ formData }) => {
 
   const handleNewMealsClick = () => {
     const prompt = buildPrompt(formData);
+    localStorage.removeItem("recipeData");
     fetchMeals(prompt, setIsLoading, setMeals, setError);
     setRecipeCards([]);
   };
@@ -93,16 +92,7 @@ const ConfirmationPage = ({ formData }) => {
       {replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
       <ButtonsContainer>
         <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
-        <GetRecipes
-          onClick={handleRecipesClick}
-          style={{
-            display: localStorage.getItem("recipeData")
-              ? "none"
-              : "inline-block",
-          }}
-        >
-          Get Recipes
-        </GetRecipes>
+        <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
       </ButtonsContainer>
       <RecipesContainer>
         <RecipesContainer>
@@ -115,12 +105,14 @@ const ConfirmationPage = ({ formData }) => {
         </RecipesContainer>
       </RecipesContainer>
       {/* if there is data in localStorage "recipeData" AND all the recipes have finished loading, the shopping list container should be rendered */}
+      {/* 
       {localStorage.getItem("recipeData") && currentLoadingIndex === null ? (
         <ShoppingList
           listData={JSON.parse(localStorage.getItem("recipeData"))}
           formData={formData}
         />
       ) : null}
+      */}
     </ConfirmationContainer>
   );
 };
