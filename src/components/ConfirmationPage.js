@@ -65,7 +65,7 @@ const ConfirmationPage = ({ formData }) => {
     const prompt = buildPrompt(formData);
     localStorage.removeItem("recipeData");
     fetchMeals(prompt, setIsLoading, setMeals, setError);
-    allowReplace(true);
+    setAllowReplace(true);
     setRecipeCards([]);
   };
 
@@ -99,7 +99,9 @@ const ConfirmationPage = ({ formData }) => {
 
       <ButtonsContainer>
         <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
-        <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
+        {isLoading === false && localStorage.getItem("recipeData") === null && (
+          <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
+        )}
       </ButtonsContainer>
       <RecipesContainer>
         <RecipesContainer>
