@@ -11,15 +11,6 @@ const getGroceryList = async (prompt) => {
     }
 
     const data = await response.json();
-    console.log(data.choices[0]);
-    /* data.choices[0] looks like this if logged:
-       {text: '\n\nAldi Shopping List:\n\nProduce:\n2 red bell peppers…e\nRice vinegar\nHoney\n\nBakery:\n4-6 flour tortillas', index: 0, logprobs: null, finish_reason: 'stop'}
-
-      I would like the data reformatted so it can be returned as an array of objects instead. for example
-      [{department: "Produce", list: [carrots, peas]}, {department: "Meat", list: ["2 boneless skinless chicken breasts"]}] 
-
-      The title "Aldi Shopping List" can be discarded
-    */
     const lines = data.choices[0].text
       .split("\n")
       .filter((line) => line.trim() !== "");
@@ -28,10 +19,11 @@ const getGroceryList = async (prompt) => {
     for (const line of lines) {
       if (line.includes("Shopping List")) {
         continue;
-      } else if (line.endsWith(":")) {
-        formattedList.push({ department: line.slice(0, -1), list: [] });
+      } else if (line.includes(":")) {
+        const department = line.slice(0, line.indexOf(":")).trim();
+        formattedList.push({ department, list: [] });
       } else {
-        formattedList[formattedList.length - 1].list.push(line);
+        formattedList[formattedList.length - 1].list.push(line.trim());
       }
     }
 
@@ -39,6 +31,7 @@ const getGroceryList = async (prompt) => {
     return formattedList;
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 
