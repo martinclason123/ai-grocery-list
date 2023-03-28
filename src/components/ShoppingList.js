@@ -1,4 +1,4 @@
-import { react, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   ShoppingListContainer,
@@ -11,9 +11,17 @@ import { shoppingListPrompt } from "./prompts";
 import { getGroceryList } from "./mealFunctions";
 
 const ShoppingList = ({ listData, formData }) => {
+  /* This should set list to the groceryList data in local storage if it is present, so that the data is displayed on refresh*/
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const storedList = localStorage.getItem("groceryList");
+    if (storedList) {
+      setList(JSON.parse(storedList));
+    }
+  }, []);
 
   const handleGetShoppingList = async (data) => {
     try {
@@ -24,10 +32,6 @@ const ShoppingList = ({ listData, formData }) => {
         .flat()
         .join(", ");
 
-      // console.log("Titles:", titles);
-      // console.log("Ingredients:", ingredients);
-      // console.log(typeof formData);
-      // console.log(formData);
       let allergies;
 
       const allergiesList = formData.restrictions.join(", ");
@@ -39,19 +43,17 @@ const ShoppingList = ({ listData, formData }) => {
         `;
       }
 
-      console.log(allergies);
       const store = formData.store;
-      console.log("preferred store:", store);
 
       const prompt = shoppingListPrompt(allergies, store, ingredients, titles);
       const groceryList = await getGroceryList(prompt);
+      localStorage.setItem("groceryList", JSON.stringify(groceryList));
+
       setLoading(false);
-      console.log(groceryList);
       setList(groceryList);
     } catch (error) {
       setLoading(false);
       setError(true);
-      console.log(error);
     }
   };
   return (
@@ -83,20 +85,6 @@ const ShoppingList = ({ listData, formData }) => {
       )}
 
       <div>
-        {/* This is resulting in the following error:
-        TypeError: Cannot read properties of undefined (reading 'map')
-
-Source
-src\components\ShoppingList.js (86:14) @ map
-
-  84 | 
-  85 | <div>
-> 86 |   {list.map((departmentItem) => (
-     |        ^
-  87 |     <div key={departmentItem.department}>
-  88 |       <h2>{departmentItem.department}</h2>
-  89 |       <ul>
-        */}
         {list.map((departmentItem) => (
           <div key={departmentItem.department}>
             <h2>{departmentItem.department}</h2>
