@@ -15,6 +15,7 @@ const ShoppingList = ({ listData, formData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const storedList = localStorage.getItem("groceryList");
@@ -58,7 +59,9 @@ const ShoppingList = ({ listData, formData }) => {
       setError(true);
     }
   };
-
+  const toggleList = () => {
+    setIsOpen(!isOpen);
+  };
   const renderGetShoppingListButton = () => {
     if (error) {
       return (
@@ -80,26 +83,30 @@ const ShoppingList = ({ listData, formData }) => {
         </GetShoppingList>
       );
     } else {
-      return <h1>Shopping List</h1>;
+      //convert this to an accordion control. By default the list should be shown.
+      // clicking it should hide the list.
+      return <h1 onClick={toggleList}>Shopping List {isOpen ? "▼" : "▶"}</h1>; //should see a "▼" : "▶" based on open or closed state.
     }
   };
 
   return (
     <ShoppingListContainer>
       {renderGetShoppingListButton()}
-
-      <div>
-        {list.map((departmentItem) => (
-          <div key={departmentItem.department}>
-            <h2>{departmentItem.department}</h2>
-            <ul>
-              {departmentItem.list.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      {/* This is what should be shown or hidden when Shopping list is clicked */}
+      {isOpen && (
+        <div>
+          {list.map((departmentItem) => (
+            <div key={departmentItem.department}>
+              <h2>{departmentItem.department}</h2>
+              <ul>
+                {departmentItem.list.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
     </ShoppingListContainer>
   );
 };

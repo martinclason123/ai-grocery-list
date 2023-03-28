@@ -31,8 +31,14 @@ const ConfirmationPage = ({ formData }) => {
 
   useEffect(() => {
     if (meals.length === 0) {
+      // const prompt = buildPrompt(formData);
+      // fetchMeals(prompt, setIsLoading, setMeals, setError);
       const prompt = buildPrompt(formData);
+      localStorage.removeItem("recipeData");
+      localStorage.removeItem("groceryList");
       fetchMeals(prompt, setIsLoading, setMeals, setError);
+      setAllowReplace(true);
+      setRecipeCards([]);
     }
   }, []);
 
