@@ -70,6 +70,7 @@ const ConfirmationPage = ({ formData }) => {
   const handleNewMealsClick = () => {
     const prompt = buildPrompt(formData);
     localStorage.removeItem("recipeData");
+    localStorage.removeItem("groceryList");
     fetchMeals(prompt, setIsLoading, setMeals, setError);
     setAllowReplace(true);
     setRecipeCards([]);

@@ -11,15 +11,16 @@ import { shoppingListPrompt } from "./prompts";
 import { getGroceryList } from "./mealFunctions";
 
 const ShoppingList = ({ listData, formData }) => {
-  /* This should set list to the groceryList data in local storage if it is present, so that the data is displayed on refresh*/
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
     const storedList = localStorage.getItem("groceryList");
     if (storedList) {
       setList(JSON.parse(storedList));
+      setIsEmpty(false);
     }
   }, []);
 
@@ -51,38 +52,41 @@ const ShoppingList = ({ listData, formData }) => {
 
       setLoading(false);
       setList(groceryList);
+      setIsEmpty(false);
     } catch (error) {
       setLoading(false);
       setError(true);
     }
   };
-  return (
-    <ShoppingListContainer>
-      {error && (
+
+  const renderGetShoppingListButton = () => {
+    if (error) {
+      return (
         <>
           <p>
             There was an error creating the shopping list. Please try again.
           </p>
-          <GetShoppingList
-            onClick={() => {
-              handleGetShoppingList(listData);
-            }}
-          >
+          <GetShoppingList onClick={() => handleGetShoppingList(listData)}>
             Get Shopping List
           </GetShoppingList>
         </>
-      )}
-      {loading ? (
-        <p>Loading Shopping List...</p>
-      ) : (
-        <GetShoppingList
-          onClick={() => {
-            handleGetShoppingList(listData);
-          }}
-        >
+      );
+    } else if (loading) {
+      return <p>Loading Shopping List...</p>;
+    } else if (isEmpty) {
+      return (
+        <GetShoppingList onClick={() => handleGetShoppingList(listData)}>
           Get Shopping List
         </GetShoppingList>
-      )}
+      );
+    } else {
+      return <h1>Shopping List</h1>;
+    }
+  };
+
+  return (
+    <ShoppingListContainer>
+      {renderGetShoppingListButton()}
 
       <div>
         {list.map((departmentItem) => (

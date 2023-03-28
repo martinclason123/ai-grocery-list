@@ -54,6 +54,7 @@ export default function Home() {
     localStorage.removeItem("meals");
     localStorage.removeItem("recipeCards");
     localStorage.removeItem("recipeData");
+    localStorage.removeItem("groceryList");
 
     setShowForm(false); // Add this line to temporarily hide the form
 
