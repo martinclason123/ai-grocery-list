@@ -44,8 +44,7 @@ const ShoppingList = ({ listData, formData }) => {
         allergies = "";
       } else {
         allergies = `I have severe allergies to the following: ${allergiesList}, ensure they are not included
-                     in the items on this shopping list.
-                     &apos;`;
+  in the items on this shopping list.`;
       }
 
       const store = formData.store;
