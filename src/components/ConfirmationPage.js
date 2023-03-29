@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
-import { print } from "./utilities";
+import { Print } from "./utilities";
 import {
   handleGetRecipesClick,
   replaceMeal,
@@ -85,7 +85,7 @@ const ConfirmationPage = ({ formData }) => {
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
-      <ReplaceButton onClick={print}>Print Meal Plan</ReplaceButton>
+      <Print />
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
