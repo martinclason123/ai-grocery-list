@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
+import { print } from "./utilities";
 import {
   handleGetRecipesClick,
   replaceMeal,
@@ -31,8 +32,6 @@ const ConfirmationPage = ({ formData }) => {
 
   useEffect(() => {
     if (meals.length === 0) {
-      // const prompt = buildPrompt(formData);
-      // fetchMeals(prompt, setIsLoading, setMeals, setError);
       const prompt = buildPrompt(formData);
       localStorage.removeItem("recipeData");
       localStorage.removeItem("groceryList");
@@ -53,6 +52,7 @@ const ConfirmationPage = ({ formData }) => {
   }, []);
 
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
+  localStorage.setItem("selectedMeals", JSON.stringify(mealsToDisplay));
   const extraMeals = meals.slice(parseInt(formData.days));
 
   const handleReplaceMeal = (mealIndex) => {
@@ -85,6 +85,7 @@ const ConfirmationPage = ({ formData }) => {
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
+      <ReplaceButton onClick={print}>Print Meal Plan</ReplaceButton>
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 import {
   ShoppingListContainer,
@@ -16,6 +17,8 @@ const ShoppingList = ({ listData, formData }) => {
   const [error, setError] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
+
+  const containerRef = useRef();
 
   useEffect(() => {
     const storedList = localStorage.getItem("groceryList");
@@ -41,8 +44,8 @@ const ShoppingList = ({ listData, formData }) => {
         allergies = "";
       } else {
         allergies = `I have severe allergies to the following: ${allergiesList}, ensure they are not included
-        in the items on this shopping list.
-        `;
+                     in the items on this shopping list.
+                     &apos;`;
       }
 
       const store = formData.store;
@@ -62,7 +65,15 @@ const ShoppingList = ({ listData, formData }) => {
   const toggleList = () => {
     setIsOpen(!isOpen);
   };
+  const printShoppingList = useReactToPrint({
+    content: () => containerRef.current,
+  });
   const renderGetShoppingListButton = () => {
+    /* I would like this function to also return a "Print Shopping List" button when it has 
+        finished loading. it should open a print dialog that includes the shopping list
+
+    */
+
     if (error) {
       return (
         <>
@@ -85,12 +96,17 @@ const ShoppingList = ({ listData, formData }) => {
     } else {
       //convert this to an accordion control. By default the list should be shown.
       // clicking it should hide the list.
-      return <h1 onClick={toggleList}>Shopping List {isOpen ? "▼" : "▶"}</h1>; //should see a "▼" : "▶" based on open or closed state.
+      return (
+        <>
+          <h1 onClick={toggleList}>Shopping List {isOpen ? "▼" : "▶"}</h1>
+          <button onClick={printShoppingList}>Print</button>
+        </>
+      ); //should see a "▼" : "▶" based on open or closed state.
     }
   };
 
   return (
-    <ShoppingListContainer>
+    <ShoppingListContainer ref={containerRef}>
       {renderGetShoppingListButton()}
       {/* This is what should be shown or hidden when Shopping list is clicked */}
       {isOpen && (
