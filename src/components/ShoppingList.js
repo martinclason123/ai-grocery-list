@@ -17,7 +17,7 @@ const ShoppingList = ({ listData, formData }) => {
   const [error, setError] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
-
+  console.log(formData);
   const containerRef = useRef();
 
   useEffect(() => {
@@ -43,8 +43,9 @@ const ShoppingList = ({ listData, formData }) => {
       if (allergiesList === "") {
         allergies = "";
       } else {
-        allergies = `I have severe allergies to the following: ${allergiesList}, ensure they are not included
-  in the items on this shopping list.`;
+        //       allergies = `I have severe allergies to the following: ${allergiesList}, ensure they are not included
+        // in the items on this shopping list.`;
+        allergies = "";
       }
 
       const store = formData.store;
