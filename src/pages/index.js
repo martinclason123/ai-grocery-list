@@ -13,8 +13,11 @@ import {
   CheckmarkSpan,
   CheckmarkImage,
   DescriptionContainer,
+  HomeIcon,
+  NavLink,
 } from "../styles/HomePageStyles";
 import MultiStepForm from "../components/MultiStepForm";
+import useTypingEffect from "@/hooks/useTypingEffect";
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
@@ -22,6 +25,8 @@ export default function Home() {
   const [hasStartedForm, setHasStartedForm] = useState(false);
   const [blinking, setBlinking] = useState(false);
   const [newForm, setNewForm] = useState(true);
+
+  const headerText = useTypingEffect("Put Your Dinner Plan on Auto Pilot", 50);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -76,7 +81,9 @@ export default function Home() {
     <Container>
       <Navbar>
         <RobotLogo onClick={handleLogoClick}>
-          <svg
+          <HomeIcon src="/images/AMP.svg" />
+          <NavLink>Home</NavLink>
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
             width="50"
@@ -127,7 +134,7 @@ export default function Home() {
             <circle cx="40" cy="60" r="2" fill="black" />
             <path d="M27 55 Q30 45 33 55 Z" fill="black" />
             <path d="M67 55 Q70 45 73 55 Z" fill="black" />
-          </svg>
+          </svg> */}
         </RobotLogo>
       </Navbar>
       <Head>
@@ -141,7 +148,7 @@ export default function Home() {
 
       {!showForm && (
         <HeaderOverlay>
-          <Header>Put Your Dinner Plan on Auto Pilot</Header>
+          <Header>{headerText}</Header>
           <DescriptionContainer>
             <CheckmarkImage src="/images/greenCheck.svg" />
             <Description>

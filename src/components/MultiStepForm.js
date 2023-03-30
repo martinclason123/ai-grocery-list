@@ -12,7 +12,11 @@ import {
 import ConfirmationPage from "./ConfirmationPage";
 const Questions = Object.values(QuestionComponents);
 
-const MultiStepForm = ({ setBlinking }) => {
+const MultiStepForm = (
+  {
+    /*setBlinking*/
+  }
+) => {
   const urlParams = new URLSearchParams(window.location.search);
   const initialCurrentStep =
     Number(localStorage.getItem("currentStep")) ||
@@ -68,11 +72,11 @@ const MultiStepForm = ({ setBlinking }) => {
   const currentQuestionKey = Object.keys(formData)[currentStep];
 
   const handleNextClick = () => {
-    setBlinking(true);
+    // setBlinking(true);
     goToNextStep();
-    setTimeout(() => {
-      setBlinking(false);
-    }, 600);
+    // setTimeout(() => {
+    //   setBlinking(false);
+    // }, 600);
   };
 
   const isFormComplete = currentStep === Questions.length;

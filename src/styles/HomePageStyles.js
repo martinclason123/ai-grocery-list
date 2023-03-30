@@ -59,11 +59,18 @@ export const Navbar = styled.nav`
   padding: 10px;
   width: 80%;
   border-radius: 100px;
-  margin-top: 2em;
+  margin-top: 1em;
 `;
-
+export const HomeIcon = styled.img`
+  width: 4em;
+`;
+export const NavLink = styled.h2`
+  color: #fff;
+`;
 export const RobotLogo = styled.div`
   cursor: pointer;
+  display: flex;
+  gap: 2em;
   .robot-eye.blinking {
     animation: blink 0.2s ease-in-out 3;
   }
@@ -102,18 +109,3 @@ export const StartOverButton = styled.button`
     color: white;
   }
 `;
-//   font-size: 1.2rem;
-//   font-weight: bold;
-//   background-color: #f44336;
-//   color: white;
-//   padding: 1rem 2rem;
-//   border-radius: 5px;
-//   border: none;
-//   outline: none;
-//   cursor: pointer;
-//   margin-left: 1rem;
-
-//   &:hover {
-//     background-color: #d32f2f;
-//   }
-// `;
