@@ -8,24 +8,37 @@ export const Container = styled.div`
   padding: 0 1rem;
   font-family: roboto;
 `;
-
+export const HeaderOverlay = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
 export const Header = styled.h1`
-  font-size: 2.5rem;
-  margin: 10rem 0 0 0;
-  text-align: center;
+  font-size: 4.5rem;
+  margin: 10rem 0 3rem 0;
+  text-align: left;
 `;
-
+export const DescriptionContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const CheckmarkSpan = styled.span`
+  margin-right: 1rem;
+`;
 export const Description = styled.p`
-  font-size: 1.25rem;
-  margin: 1rem;
-  text-align: center;
+  font-size: 2rem;
+  text-align: left;
+  margin: 0;
 `;
-
+export const CheckmarkImage = styled.img`
+  width: 2rem;
+  margin: 0.75rem 0.75rem 0.75rem 0;
+`;
 export const CallToAction = styled.button`
-  font-size: 1.25rem;
+  font-size: 2rem;
   padding: 0.75rem 1.5rem;
   border: none;
-  background-color: #4285f4;
+  background-color: #1d6859;
   color: white;
   cursor: pointer;
   border-radius: 4px;
@@ -33,7 +46,7 @@ export const CallToAction = styled.button`
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #3a75c4;
+    background-color: #313b42e0;
     color: white;
   }
 `;
@@ -42,9 +55,11 @@ export const Navbar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f8f9fa;
+  background-color: #313b42;
   padding: 10px;
-  width: 100%;
+  width: 80%;
+  border-radius: 100px;
+  margin-top: 2em;
 `;
 
 export const RobotLogo = styled.div`
@@ -65,13 +80,14 @@ export const RobotLogo = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   gap: 1em;
 `;
 
 export const StartOverButton = styled.button`
-  font-size: 1.25rem;
+  font-size: 2rem;
   padding: 0.75rem 1.5rem;
   border: none;
   background-color: #f44336;
@@ -82,7 +98,7 @@ export const StartOverButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #3a75c4;
+    background-color: #f4504d;
     color: white;
   }
 `;

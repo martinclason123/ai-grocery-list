@@ -9,6 +9,10 @@ import {
   RobotLogo,
   StartOverButton,
   ButtonsContainer,
+  HeaderOverlay,
+  CheckmarkSpan,
+  CheckmarkImage,
+  DescriptionContainer,
 } from "../styles/HomePageStyles";
 import MultiStepForm from "../components/MultiStepForm";
 
@@ -136,12 +140,28 @@ export default function Home() {
       </Head>
 
       {!showForm && (
-        <>
-          <Header>Welcome to Custom Meal Planner</Header>
-          <Description>
-            Get a custom meal plan, shopping list, and cooking instructions
-            tailored to your specific needs, budget, and store.
-          </Description>
+        <HeaderOverlay>
+          <Header>Put Your Dinner Plan on Auto Pilot</Header>
+          <DescriptionContainer>
+            <CheckmarkImage src="/images/greenCheck.svg" />
+            <Description>
+              Customized meal plans tailored to your dietary preferences and
+              lifestyle
+            </Description>
+          </DescriptionContainer>
+          <DescriptionContainer>
+            <CheckmarkImage src="/images/greenCheck.svg" />
+            <Description>
+              Easy-to-follow, mouth-watering recipes for every meal
+            </Description>
+          </DescriptionContainer>
+          <DescriptionContainer>
+            <CheckmarkImage src="/images/greenCheck.svg" />
+            <Description>
+              A streamlined shopping list, organized by departments to save you
+              time at the store
+            </Description>
+          </DescriptionContainer>
           <ButtonsContainer>
             <CallToAction onClick={handleGetStarted}>
               {hasStartedForm ? "Resume" : "Let's get started!"}
@@ -152,7 +172,7 @@ export default function Home() {
               </StartOverButton>
             )}
           </ButtonsContainer>
-        </>
+        </HeaderOverlay>
       )}
 
       {showForm && <MultiStepForm setBlinking={setBlinking} />}
