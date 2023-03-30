@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PrintPage = styled.div`
-  height: 3300px;
+  min-height: 1100px;
   width: 850px;
   font-family: roboto;
   display: flex;
@@ -20,4 +20,36 @@ export const MealTitle = styled.span`
 `;
 export const Meal = styled.p`
   font-size: 30px;
+`;
+
+export const InstructionsList = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 800px;
+`;
+
+export const InstructionItem = styled.li`
+  font-size: 16px;
+`;
+
+export const IngredientsList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 800px;
+`;
+
+export const IngredientItem = styled.li`
+  font-size: 16px;
+`;
+
+export const ListItem = styled.li`
+  list-style-type: none;
+  font-size: 20px;
+  margin: 4px 0;
+`;
+
+export const GroceryListContainer = styled.div`
+  margin-left: 40px;
 `;
