@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PrintPage = styled.div`
-  height: 1100px;
+  height: 3300px;
   width: 850px;
   font-family: roboto;
   display: flex;
