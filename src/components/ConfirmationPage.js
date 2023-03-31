@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
-import Print from "../components/utilities/Print";
+import { Print } from "./utilities";
 
 import {
   handleGetRecipesClick,
