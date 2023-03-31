@@ -15,6 +15,8 @@ import {
   DescriptionContainer,
   HomeIcon,
   NavLink,
+  HeroImage,
+  HeroContainer,
 } from "../styles/HomePageStyles";
 import MultiStepForm from "../components/MultiStepForm";
 import useTypingEffect from "@/hooks/useTypingEffect";
@@ -81,62 +83,13 @@ export default function Home() {
     <Container>
       <Navbar>
         <RobotLogo onClick={handleLogoClick}>
-          <HomeIcon src="/images/AMP.svg" />
           <NavLink>Home</NavLink>
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 100 100"
-            width="50"
-            height="50"
-          >
-            <rect
-              x="20"
-              y="20"
-              width="60"
-              height="60"
-              fill="black"
-              rx="10"
-              ry="10"
-            />
-            <rect
-              x="35"
-              y="10"
-              width="30"
-              height="15"
-              fill="black"
-              rx="5"
-              ry="5"
-            />
-            <circle
-              className={`robot-eye${blinking ? " blinking" : ""}`}
-              cx="35"
-              cy="40"
-              r="5"
-              fill="white"
-            />
-            <circle
-              className={`robot-eye${blinking ? " blinking" : ""}`}
-              cx="65"
-              cy="40"
-              r="5"
-              fill="white"
-            />
-
-            <rect
-              x="40"
-              y="55"
-              width="20"
-              height="10"
-              fill="white"
-              rx="2"
-              ry="2"
-            />
-            <circle cx="40" cy="60" r="2" fill="black" />
-            <path d="M27 55 Q30 45 33 55 Z" fill="black" />
-            <path d="M67 55 Q70 45 73 55 Z" fill="black" />
-          </svg> */}
+        </RobotLogo>
+        <RobotLogo onClick={handleLogoClick}>
+          <HomeIcon src="/images/bwlogo2.svg" />
         </RobotLogo>
       </Navbar>
+
       <Head>
         <title>Custom Meal Planner</title>
         <meta
@@ -147,39 +100,44 @@ export default function Home() {
       </Head>
 
       {!showForm && (
-        <HeaderOverlay>
-          <Header>{headerText}</Header>
-          <DescriptionContainer>
-            <CheckmarkImage src="/images/greenCheck.svg" />
-            <Description>
-              Customized meal plans tailored to your dietary preferences and
-              lifestyle
-            </Description>
-          </DescriptionContainer>
-          <DescriptionContainer>
-            <CheckmarkImage src="/images/greenCheck.svg" />
-            <Description>
-              Easy-to-follow, mouth-watering recipes for every meal
-            </Description>
-          </DescriptionContainer>
-          <DescriptionContainer>
-            <CheckmarkImage src="/images/greenCheck.svg" />
-            <Description>
-              A streamlined shopping list, organized by departments to save you
-              time at the store
-            </Description>
-          </DescriptionContainer>
-          <ButtonsContainer>
-            <CallToAction onClick={handleGetStarted}>
-              {hasStartedForm ? "Resume" : "Let's get started!"}
-            </CallToAction>
-            {hasStartedForm && (
-              <StartOverButton onClick={handleStartOver}>
-                Start Over
-              </StartOverButton>
-            )}
-          </ButtonsContainer>
-        </HeaderOverlay>
+        <HeroContainer>
+          <HeroImage src="/images/hero.png" />
+          <HeaderOverlay>
+            <Header>{headerText}</Header>
+            <div>
+              <DescriptionContainer>
+                <CheckmarkImage src="/images/greenCheck.svg" />
+                <Description>
+                  Customized meal plans tailored to your dietary preferences and
+                  lifestyle
+                </Description>
+              </DescriptionContainer>
+              <DescriptionContainer>
+                <CheckmarkImage src="/images/greenCheck.svg" />
+                <Description>
+                  Easy-to-follow, mouth-watering recipes for every meal
+                </Description>
+              </DescriptionContainer>
+              <DescriptionContainer>
+                <CheckmarkImage src="/images/greenCheck.svg" />
+                <Description>
+                  A streamlined shopping list, organized by departments to save
+                  you time at the store
+                </Description>
+              </DescriptionContainer>
+            </div>
+            <ButtonsContainer>
+              <CallToAction onClick={handleGetStarted}>
+                {hasStartedForm ? "Resume" : "Let's get started!"}
+              </CallToAction>
+              {hasStartedForm && (
+                <StartOverButton onClick={handleStartOver}>
+                  Start Over
+                </StartOverButton>
+              )}
+            </ButtonsContainer>
+          </HeaderOverlay>
+        </HeroContainer>
       )}
 
       {showForm && <MultiStepForm setBlinking={setBlinking} />}
