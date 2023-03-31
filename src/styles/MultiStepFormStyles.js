@@ -70,22 +70,22 @@ export const ProgressBar = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 2em;
+  margin: 2em auto;
 `;
 
 export const ProgressStep = styled.div`
   position: relative;
   width: 100%;
   height: 5px;
-  background-color: ${({ active }) => (active ? "#54a0ff" : "#f1f2f6")};
+  background-color: ${({ active }) => (active ? "#229091" : "#f1f2f6")};
   &:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: -5px;
+    top: -4px;
     right: 0;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background-color: ${({ active }) => (active ? "#54a0ff" : "#f1f2f6")};
+    background-color: ${({ active }) => (active ? "#229091" : "#f1f2f6")};
   }
 `;

@@ -7,6 +7,8 @@ export const Container = styled.div`
   min-height: 100vh;
   padding: 0 1rem;
   font-family: roboto;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 export const HeaderOverlay = styled.div`
   display: flex;
@@ -17,10 +19,22 @@ export const Header = styled.h1`
   font-size: 4.5rem;
   margin: 10rem 0 3rem 0;
   text-align: left;
+
+  @media (max-width: 1085px) {
+    margin-top: 1em;
+  }
+  @media (max-width: 551px) {
+    font-size: 3rem;
+  }
 `;
 export const DescriptionContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 1085px) {
+    align-items: flex-start;
+    margin-bottom: 1em;
+  }
 `;
 export const CheckmarkSpan = styled.span`
   margin-right: 1rem;
@@ -29,6 +43,9 @@ export const Description = styled.p`
   font-size: 2rem;
   text-align: left;
   margin: 0;
+  @media (max-width: 551px) {
+    font-size: 1.6rem;
+  }
 `;
 export const CheckmarkImage = styled.img`
   width: 2rem;
@@ -49,6 +66,10 @@ export const CallToAction = styled.button`
     background-color: #313b42e0;
     color: white;
   }
+  @media (max-width: 551px) {
+    font-size: 1.5rem;
+    padding: 0rem 1rem;
+  }
 `;
 
 export const Navbar = styled.nav`
@@ -57,9 +78,12 @@ export const Navbar = styled.nav`
   justify-content: flex-start;
   background-color: #313b42;
   padding: 10px;
-  width: 80%;
-  border-radius: 100px;
   margin-top: 1em;
+  width: 100%;
+  @media (max-width: 1085px) {
+    width: 100%;
+    border-radius: 0;
+  }
 `;
 export const HomeIcon = styled.img`
   width: 4em;
@@ -91,6 +115,10 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1em;
+
+  @media (max-width: 551px) {
+    gap: 0;
+  }
 `;
 
 export const StartOverButton = styled.button`
@@ -107,5 +135,9 @@ export const StartOverButton = styled.button`
   &:hover {
     background-color: #f4504d;
     color: white;
+  }
+  @media (max-width: 551px) {
+    font-size: 1.6rem;
+    padding: 0.7rem 1.15rem;
   }
 `;
