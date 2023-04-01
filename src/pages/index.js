@@ -63,6 +63,7 @@ export default function Home() {
     localStorage.removeItem("formData");
     localStorage.removeItem("currentStep");
     localStorage.removeItem("meals");
+    localStorage.removeItem("selectedMeals");
     localStorage.removeItem("recipeCards");
     localStorage.removeItem("recipeData");
     localStorage.removeItem("groceryList");

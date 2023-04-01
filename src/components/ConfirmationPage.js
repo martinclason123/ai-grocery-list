@@ -51,8 +51,9 @@ const ConfirmationPage = ({ formData }) => {
       handleRecipesClick();
     }
   }, []);
-
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
+
+  console.log("Meals to display:", mealsToDisplay);
   localStorage.setItem("selectedMeals", JSON.stringify(mealsToDisplay));
   const extraMeals = meals.slice(parseInt(formData.days));
 
@@ -78,6 +79,7 @@ const ConfirmationPage = ({ formData }) => {
     const prompt = buildPrompt(formData);
     localStorage.removeItem("recipeData");
     localStorage.removeItem("groceryList");
+    localStorage.removeItem("selectedMeals");
     fetchMeals(prompt, setIsLoading, setMeals, setError);
     setAllowReplace(true);
     setRecipeCards([]);

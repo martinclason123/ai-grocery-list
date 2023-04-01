@@ -28,7 +28,6 @@ const MultiStepForm = (
     store: "",
     priorities: [],
     restrictions: [],
-    meals: [],
     days: "",
   };
 
