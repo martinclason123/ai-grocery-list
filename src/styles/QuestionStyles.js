@@ -34,7 +34,8 @@ export const AnswerInput = styled.input`
   font-weight: bold;
 
   &:focus-visible {
-    outline: 0.2em solid #1d6859;
+    outline: none;
+    box-shadow: 0 0 0 0.2em #1d6859;
   }
 `;
 
@@ -74,7 +75,7 @@ export const CheckBoxContainer = styled.div`
   margin-right: 10em;
 
   @media (max-width: 640px) {
-    margin-right: 0;
+    margin-right: 3em;
     margin-bottom: 3em;
   }
 `;
@@ -116,8 +117,9 @@ export const QuestionCheckbox = styled.input`
   position: absolute;
   opacity: 0;
   cursor: pointer;
-  height: 1.2em;
-  width: 1.2em;
+  height: 6em;
+  width: 6em;
+  overflow: visible;
   z-index: 1;
 `;
 

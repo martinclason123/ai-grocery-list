@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const FormContainer = styled.div`
   width: 90%;
+  padding-bottom: 5em;
 `;
 
 export const FormNavigation = styled.div`
