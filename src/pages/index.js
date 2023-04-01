@@ -97,6 +97,11 @@ export default function Home() {
           content="Create your custom meal plan, shopping list, and cooking instructions based on your specific needs, budget, and store."
         />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
 
       {!showForm && (

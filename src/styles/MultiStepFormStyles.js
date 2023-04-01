@@ -9,10 +9,15 @@ export const FormNavigation = styled.div`
   justify-content: center;
   gap: 2em;
   margin-top: 1em;
+  font-size: 0.521vw;
+
+  @media (max-width: 640px) {
+    font-size: 1.653vw;
+  }
 `;
 
 export const NavButton = styled.button`
-  font-size: 2em;
+  font-size: 3em;
   font-family: system-ui, sans-serif;
   box-shadow: 0 0 0 0.1em inset var(--c);
   background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
@@ -29,7 +34,7 @@ export const NavButton = styled.button`
   }
 `;
 export const PrevButton = styled.button`
-  font-size: 2em;
+  font-size: 3.5em;
   font-family: system-ui, sans-serif;
   box-shadow: 0 0 0 0.1em inset var(--c);
   background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
@@ -48,7 +53,7 @@ export const PrevButton = styled.button`
 `;
 
 export const NextButton = styled.button`
-  font-size: 2em;
+  font-size: 3.5em;
   font-family: system-ui, sans-serif;
   box-shadow: 0 0 0 0.1em inset var(--c);
   background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
