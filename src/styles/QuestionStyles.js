@@ -75,7 +75,7 @@ export const CheckBoxContainer = styled.div`
   margin-right: 10em;
 
   @media (max-width: 640px) {
-    margin-right: 3em;
+    margin-right: 6em;
     margin-bottom: 3em;
   }
 `;
@@ -130,7 +130,10 @@ export const AllergyInput = styled.input`
   padding: 0.2em 0.5em;
 
   &:focus-visible {
-    outline: 0.2em solid #1d6859;
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 0.2em #1d6859;
+    }
   }
 `;
 
