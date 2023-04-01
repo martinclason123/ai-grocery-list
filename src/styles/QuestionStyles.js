@@ -75,7 +75,7 @@ export const CheckBoxContainer = styled.div`
   margin-right: 10em;
 
   @media (max-width: 640px) {
-    margin-right: 6em;
+    margin-right: 3em;
     margin-bottom: 3em;
   }
 `;
