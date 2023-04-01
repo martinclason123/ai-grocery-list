@@ -5,6 +5,8 @@ import {
   CheckBoxContainer,
   CheckBoxLabel,
   AddButton,
+  AllergyInput,
+  AddAllergyContainer,
 } from "@/styles/QuestionStyles";
 
 const Question5 = ({ onFormDataChange, value }) => {
@@ -18,6 +20,7 @@ const Question5 = ({ onFormDataChange, value }) => {
     "Dairy",
     "Shellfish",
     "Peanuts",
+    "gluten",
   ]);
 
   useEffect(() => {
@@ -50,9 +53,7 @@ const Question5 = ({ onFormDataChange, value }) => {
   return (
     <QuestionContainer>
       <Question>
-        Do you have an allergies? Select any that apply. If your allergy is not
-        listed, click other, type your allergy, and then click add. Add as many
-        as you need.{" "}
+        Select or add any allergies or restrictions you have *.{" "}
       </Question>
       {restrictedList.map((restriction, index) => (
         <CheckBoxContainer key={index}>
@@ -69,8 +70,8 @@ const Question5 = ({ onFormDataChange, value }) => {
           </CheckBoxLabel>
         </CheckBoxContainer>
       ))}
-      <CheckBoxContainer>
-        <input
+      <AddAllergyContainer>
+        <AllergyInput
           ref={otherRef}
           type="text"
           placeholder="Other"
@@ -78,7 +79,7 @@ const Question5 = ({ onFormDataChange, value }) => {
           onChange={handleOtherChange}
         />
         <AddButton onClick={handleAddOther}>Add</AddButton>
-      </CheckBoxContainer>
+      </AddAllergyContainer>
     </QuestionContainer>
   );
 };

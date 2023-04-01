@@ -3,6 +3,7 @@ import App from "next/app";
 import { ThemeProvider } from "styled-components";
 import { ServerStyleSheet } from "styled-components";
 import Head from "next/head";
+import GlobalStyles from "@/styles/GlobalStyles";
 
 const theme = {
   colors: {

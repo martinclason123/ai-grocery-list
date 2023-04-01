@@ -86,9 +86,9 @@ export const CallToAction = styled.button`
     background-color: #313b42e0;
     color: white;
   }
-  @media (max-width: 551px) {
-    font-size: 1.2em;
-    padding: 0em 0.75em;
+  @media (max-width: 640px) {
+    font-size: 3em;
+    padding: 1em 1.75em;
   }
 `;
 
@@ -110,7 +110,8 @@ export const HomeIcon = styled.img`
 `;
 export const NavLink = styled.h2`
   color: black;
-  margin-left: 3em;
+  margin-left: 4vw;
+  font-size: 2em;
 `;
 export const RobotLogo = styled.div`
   cursor: pointer;
@@ -157,9 +158,9 @@ export const StartOverButton = styled.button`
     background-color: #f4504d;
     color: white;
   }
-  @media (max-width: 551px) {
-    font-size: 1.6em;
-    padding: 0.7em 1.15em;
+  @media (max-width: 640px) {
+    font-size: 3em;
+    padding: 1em 1.75em;
   }
 `;
 
