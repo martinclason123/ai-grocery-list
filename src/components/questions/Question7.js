@@ -1,10 +1,12 @@
-// Question7.js
 import React, { useEffect, useRef, useState } from "react";
 import {
   QuestionContainer,
   Question,
   CheckBoxContainer,
   CheckBoxLabel,
+  CustomCheckbox,
+  CheckedCustomCheckbox,
+  QuestionRadio,
 } from "@/styles/QuestionStyles";
 
 const Question7 = ({ onFormDataChange, value }) => {
@@ -30,7 +32,7 @@ const Question7 = ({ onFormDataChange, value }) => {
       <Question>How many days should this plan account for?</Question>
       {daysList.map((day, index) => (
         <CheckBoxContainer key={index}>
-          <input
+          <QuestionRadio
             ref={index === 0 ? inputRef : null}
             type="radio"
             value={day}
@@ -39,6 +41,13 @@ const Question7 = ({ onFormDataChange, value }) => {
             checked={selectedDay === day}
             name="days"
           />
+          {selectedDay === day ? (
+            <CheckedCustomCheckbox
+              htmlFor={`day-${index}`}
+            ></CheckedCustomCheckbox>
+          ) : (
+            <CustomCheckbox htmlFor={`day-${index}`}></CustomCheckbox>
+          )}
           <CheckBoxLabel htmlFor={`day-${index}`}>{day}</CheckBoxLabel>
         </CheckBoxContainer>
       ))}

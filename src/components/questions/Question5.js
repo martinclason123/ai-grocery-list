@@ -7,6 +7,9 @@ import {
   AddButton,
   AllergyInput,
   AddAllergyContainer,
+  CustomCheckbox,
+  CheckedCustomCheckbox,
+  QuestionCheckbox,
 } from "@/styles/QuestionStyles";
 
 const Question5 = ({ onFormDataChange, value }) => {
@@ -29,12 +32,16 @@ const Question5 = ({ onFormDataChange, value }) => {
 
   const handleChange = (event) => {
     const { value, checked } = event.target;
+    let updatedRestricted;
     if (checked) {
-      setRestricted([...restricted, value]);
+      updatedRestricted = [...restricted, value];
     } else {
-      setRestricted(restricted.filter((restriction) => restriction !== value));
+      updatedRestricted = restricted.filter(
+        (restriction) => restriction !== value
+      );
     }
-    onFormDataChange([...restricted, value]);
+    setRestricted(updatedRestricted);
+    onFormDataChange(updatedRestricted);
   };
 
   const handleOtherChange = (event) => {
@@ -57,7 +64,7 @@ const Question5 = ({ onFormDataChange, value }) => {
       </Question>
       {restrictedList.map((restriction, index) => (
         <CheckBoxContainer key={index}>
-          <input
+          <QuestionCheckbox
             ref={index === 0 ? inputRef : null}
             type="checkbox"
             value={restriction}
@@ -65,6 +72,13 @@ const Question5 = ({ onFormDataChange, value }) => {
             onChange={handleChange}
             checked={restricted.includes(restriction)}
           />
+          {restricted.includes(restriction) ? (
+            <CheckedCustomCheckbox
+              htmlFor={`restriction-${index}`}
+            ></CheckedCustomCheckbox>
+          ) : (
+            <CustomCheckbox htmlFor={`restriction-${index}`}></CustomCheckbox>
+          )}
           <CheckBoxLabel htmlFor={`restriction-${index}`}>
             {restriction}
           </CheckBoxLabel>

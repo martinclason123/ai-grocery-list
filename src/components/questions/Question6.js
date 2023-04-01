@@ -17,12 +17,14 @@ const Question6 = ({ onFormDataChange, value }) => {
 
   const handleChange = (event) => {
     const { value, checked } = event.target;
+    let updatedMeals;
     if (checked) {
-      setMeals([...meals, value]);
+      updatedMeals = [...meals, value];
     } else {
-      setMeals(meals.filter((priority) => priority !== value));
+      updatedMeals = meals.filter((meal) => meal !== value);
     }
-    onFormDataChange([...meals, value]);
+    setMeals(updatedMeals);
+    onFormDataChange(updatedMeals);
   };
 
   const priorityList = ["Breakfast", "Lunch", "Dinner"];

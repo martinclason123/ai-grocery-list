@@ -124,7 +124,7 @@ export const CustomCheckbox = styled.span`
     transform: translate(-50%, -50%);
     width: 0.9em;
     height: 0.9em;
-    background-color: blue;
+    background-color: #229091;
     border-radius: 2px;
     opacity: 0;
   }
@@ -134,4 +134,14 @@ export const CheckedCustomCheckbox = styled(CustomCheckbox)`
   &::after {
     opacity: 1;
   }
+`;
+
+export const QuestionRadio = styled.input`
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  appearance: none;
+  z-index: 1;
 `;
