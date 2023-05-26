@@ -33,6 +33,7 @@ const handleGetRecipesClick = async (
         response = storedRecipeData[index];
       } else {
         response = await getRecipes(formData, meal);
+        console.log(`Response Object: ${response}`);
         storedRecipeData[index] = response;
         localStorage.setItem("recipeData", JSON.stringify(storedRecipeData));
       }
@@ -47,17 +48,13 @@ const handleGetRecipesClick = async (
             <RecipeHeader>Ingredients</RecipeHeader>
             <IngredientsList>
               {response.recipe.map((ingredient) => (
-                <IngredientListItem key={ingredient}>
-                  {ingredient}
-                </IngredientListItem>
+                <IngredientListItem key={ingredient}>{ingredient}</IngredientListItem>
               ))}
             </IngredientsList>
             <RecipeHeader>Cooking Instructions</RecipeHeader>
             <InstructionsList>
               {response.instructions.map((instruction, index) => (
-                <InstructionListItem key={index}>
-                  {instruction.text}
-                </InstructionListItem>
+                <InstructionListItem key={index}>{instruction.text}</InstructionListItem>
               ))}
             </InstructionsList>
           </RecipeCard>

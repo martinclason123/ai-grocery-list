@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
 import { Print } from "./utilities";
 
-import {
-  handleGetRecipesClick,
-  replaceMeal,
-  fetchMeals,
-} from "./mealFunctions";
+import { handleGetRecipesClick, replaceMeal, fetchMeals } from "./mealFunctions";
 import {
   ConfirmationContainer,
   MealList,
@@ -53,7 +49,6 @@ const ConfirmationPage = ({ formData }) => {
   }, []);
   const mealsToDisplay = meals.slice(0, parseInt(formData.days));
 
-  console.log("Meals to display:", mealsToDisplay);
   localStorage.setItem("selectedMeals", JSON.stringify(mealsToDisplay));
   const extraMeals = meals.slice(parseInt(formData.days));
 
@@ -88,7 +83,7 @@ const ConfirmationPage = ({ formData }) => {
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
-      <Print />
+      {/* <Print /> */}
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -101,27 +96,21 @@ const ConfirmationPage = ({ formData }) => {
                 Day {index + 1}: {meal}
               </p>
               {allowReplace && extraMeals.length > 0 && (
-                <ReplaceButton onClick={() => handleReplaceMeal(index)}>
-                  Replace
-                </ReplaceButton>
+                <ReplaceButton onClick={() => handleReplaceMeal(index)}>Replace</ReplaceButton>
               )}
             </Meal>
           ))}
         </MealList>
       )}
 
-      {allowReplace && replacementsUsed > 0 && (
-        <p>Replacements left: {extraMeals.length}</p>
-      )}
+      {allowReplace && replacementsUsed > 0 && <p>Replacements left: {extraMeals.length}</p>}
 
       <ButtonsContainer>
         <BackButton onClick={handleNewMealsClick}>New Meals</BackButton>
         {isLoading === false && localStorage.getItem("recipeData") === null && (
           <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
         )}
-        {recipesError && (
-          <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>
-        )}
+        {recipesError && <GetRecipes onClick={handleRecipesClick}>Get Recipes</GetRecipes>}
       </ButtonsContainer>
       <RecipesContainer>
         <RecipesContainer>

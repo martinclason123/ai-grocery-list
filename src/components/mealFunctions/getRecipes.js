@@ -41,15 +41,15 @@ const getRecipes = async (formData, meal) => {
       throw new Error("Failed to fetch recipes.");
     }
 
-    const data = await response;
+    const data = await response.json(); // convert the response to JSON
+    formattedJSON = JSON.stringify(data, null, 2); // stringify it (pretty format)
+    console.log(`data response from API: ${formattedJSON}`); // log the data
 
-    console.log(data);
-
+    // If you want to process the data, you can uncomment the following line
     // const processedResponse = responseHandler(data);
-    console.log(data);
-    return data;
+
+    return formattedJSON; // return the data
   } catch (error) {
-    console.log(data);
     console.error(error.message);
   }
 };
