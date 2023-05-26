@@ -13,25 +13,38 @@ const handler = async (req, res) => {
     try {
       const { prompt } = req.body;
 
-      // Log the prompt
-      console.log("prompt:", prompt);
+      const conversation = [
+        {
+          role: "system",
+          content: `You are a helpful assistant that finds meal plans specifically catered to users restrictions, diets, allergies, shopping store preference and other factors. you should respond with nothing other than JSON. 
+                    for this request, only return meal titles. Do not include ingredients or cooking instructions.
+      
+              Example format:
+              {
+                "meals": [
+                  "Grilled Cheese and tomato soup,
+                  "Steak and potatos",
+                  "Spaghetti and meatballs",
+                  ]
+               }
+              `,
+        },
 
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        temperature: 0,
-        max_tokens: 1000,
-        top_p: 1,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-        // stop: ["\n"],
+        { role: "user", content: `Text: ${prompt}` },
+      ];
+
+      const response = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: conversation,
+        // max_tokens: 20000,
+        // temperature: 0.7,
       });
 
       // Log the API response
-      console.log("API response:", response.data);
+      console.log("API response:", response.data.choices);
 
       // Extract the JSON-like string from the API response
-      const jsonResponseText = response.data.choices[0].text.trim();
+      const jsonResponseText = response.data.choices[0].message.content.trim();
 
       // Parse the JSON-like string into a JSON object
       const jsonResponse = JSON.parse(jsonResponseText);
@@ -41,7 +54,8 @@ const handler = async (req, res) => {
 
       res.status(200).json(jsonResponse);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.log(error);
+      res.status(500).json({ error });
     }
   } else {
     res.status(405).json({ error: "Method not allowed" });

@@ -1,11 +1,15 @@
 const fetchMeals = async (prompt, setIsLoading, setMeals, setError) => {
   setIsLoading(true);
   try {
-    const response = await fetch("/api/fetch_meals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
-    });
+    const response = await fetch(
+      "https://ai-meal-planner-server.onrender.com",
+
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch meals.");

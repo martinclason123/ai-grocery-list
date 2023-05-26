@@ -1,5 +1,18 @@
 const recipesPrompt = (formData, meal) => {
-  const prompt = `Please provide a recipe for the following meal that is suitable for ${
+  const content = `You are a helpful assistant that receives a meal title, and then provides an estimated prep time, ingredients list, and step by
+                   step instructions. It is crucial you respond with nothing other than JSON for this request You choose recipes that have no more than 20 ingredients.
+
+Your response should only include this strict JSON structure:
+{
+  "recipe": [
+    { "title": "Mac and Cheese" },
+    { "prepTime": "10 minutes" },
+    { "recipe": ["cheese", "bread", "butter"] },
+    { "instructions": ["Heat pan", "Spread butter evenly..."] }
+  ]
+}
+`;
+  const prompt = `Please provide a recipe for the following meal: ${meal} that is suitable for ${
     formData.adults
   } adults and ${
     formData.children
@@ -11,23 +24,9 @@ const recipesPrompt = (formData, meal) => {
     ", "
   )}.
   
-  ${meal}
-  Choose a recipe that has no more than 20 ingredients
-  Please provide the recipe in the following format:
-  
-  Title: ${meal}
-  Preparation Time: 
-  Recipe:
-  - Ingredient 1
-  - Ingredient 2
-  - ...
-  Instructions:
-  - Step 1:
-  - Step 2:
-  ...
   `;
 
-  return prompt;
+  return { prompt: prompt, content: content };
 };
 
 export default recipesPrompt;
