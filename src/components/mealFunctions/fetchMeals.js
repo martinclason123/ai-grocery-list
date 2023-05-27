@@ -2,8 +2,8 @@ const fetchMeals = async (prompt, setIsLoading, setMeals, setError) => {
   setIsLoading(true);
   try {
     const response = await fetch(
-      "https://ai-meal-planner-server.onrender.com",
-
+      "https://ai-meal-planner-server.onrender.com/meals/",
+      // "http://localhost:5000/meals/",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

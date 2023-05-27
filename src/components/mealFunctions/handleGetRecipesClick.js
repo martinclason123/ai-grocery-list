@@ -1,7 +1,3 @@
-/* This should be rewritten to check for local storage. If there is not an array in localStorage that holds the data used to fill out the cards
-   one should be created. When a response for a recipe is received from the API, that response should be pushed into that array.  If local storage exist, 
-   it should be used to fill out the cards rather than another API card
-*/
 import getRecipes from "./getRecipes";
 import { Accordion } from "@/snippets";
 import {
@@ -33,7 +29,7 @@ const handleGetRecipesClick = async (
         response = storedRecipeData[index];
       } else {
         response = await getRecipes(formData, meal);
-        console.log(`Response Object: ${response}`);
+        console.log(`Response Object:`, response);
         storedRecipeData[index] = response;
         localStorage.setItem("recipeData", JSON.stringify(storedRecipeData));
       }
@@ -47,14 +43,14 @@ const handleGetRecipesClick = async (
             <p>Estimated prep time: {response.prepTime}</p>
             <RecipeHeader>Ingredients</RecipeHeader>
             <IngredientsList>
-              {response.recipe.map((ingredient) => (
+              {response.ingredients.map((ingredient) => (
                 <IngredientListItem key={ingredient}>{ingredient}</IngredientListItem>
               ))}
             </IngredientsList>
             <RecipeHeader>Cooking Instructions</RecipeHeader>
             <InstructionsList>
               {response.instructions.map((instruction, index) => (
-                <InstructionListItem key={index}>{instruction.text}</InstructionListItem>
+                <InstructionListItem key={index}>{instruction}</InstructionListItem>
               ))}
             </InstructionsList>
           </RecipeCard>
