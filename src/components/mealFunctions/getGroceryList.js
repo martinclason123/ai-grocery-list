@@ -15,7 +15,8 @@ const isValidResponse = (response) => {
 const getGroceryList = async (prompt, attempts = 0) => {
   try {
     const response = await fetch(
-      "https://ai-meal-planner-server.onrender.com/grocerylist/",
+      // "https://ai-meal-planner-server.onrender.com/grocerylist/",
+      "http://localhost:5000/grocerylist/",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -33,8 +33,13 @@ const ShoppingList = ({ listData, formData }) => {
       setLoading(true);
       console.log("data: ", data[0].ingredients);
       const titles = data.map((item) => item.title).join(", ");
-      const ingredients = data[0].ingredients
-        .map((item) => item)
+      console.log("data:", data);
+      // const ingredients = data[0].ingredients
+      //   .map((item) => item)
+      //   .flat()
+      //   .join(", ");
+      const ingredients = data
+        .map((item) => item.ingredients)
         .flat()
         .join(", ");
 
@@ -52,7 +57,6 @@ const ShoppingList = ({ listData, formData }) => {
       const store = formData.store;
 
       const prompt = shoppingListPrompt(allergies, store, ingredients, titles);
-      console.log("ingredients:", ingredients);
       const groceryList = await getGroceryList(prompt);
       localStorage.setItem("groceryList", JSON.stringify(groceryList));
 

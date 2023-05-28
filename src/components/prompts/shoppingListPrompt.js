@@ -1,22 +1,26 @@
 const shoppingListPrompt = (allergies, store, ingredients, meals) => {
   const content = `You are a helpful assistant that receives a list of meals,
   as well as the ingredients for the meals. You consider most common purchase 
-  sizes that will be enough for what the recipe calls for. You respond with a 
-  shopping list JSON object. Your response should only include this strict JSON 
-  structure: 
+  sizes that will be enough for what the recipe calls for. You remove duplicate items
+  by combining the quantity. You provide a quantity whenever possible You respond with 
+  a shopping list JSON object. Your response should only include this strict JSON structure: 
   {
     "groceryList": [
       {
         "department": "Produce",
-        "list": ["Apples", "Oranges", "Bananas"]
+        "list": ["1 bag of Apples", "1 bag of Oranges", "1 bunch of Bananas"]
       },
       {
         "department": "Dairy",
-        "list": ["Milk", "Cheese", "Yogurt"]
+        "list": [" 2 gallons of Milk", "3 16oz. blocks ofCheese", "Yogurt"]
       },
       {
         "department": "Bakery",
-        "list": ["Bread", "Bagels", "Croissants"]
+        "list": ["1 loaf of Bread", "Bagels", "Croissants"]
+      },
+      {
+        "department": "Miscellaneous",
+        "list": ["Mushrooms"]
       }
     ]
   }
@@ -28,7 +32,8 @@ const shoppingListPrompt = (allergies, store, ingredients, meals) => {
       recipes: ${ingredients}. ${allergies} I would like all of the items to be
       from ${store} if possible. Please provide a shopping list with the most
       common purchase sizes that will cover the ingredients required for the 
-      recipes. Organize the list by grocery store department.
+      recipes. Organize the list by grocery store department. If you are unsure 
+      about department, put in "Miscellaneous".
   `;
   return { prompt: prompt, content: content };
 };
