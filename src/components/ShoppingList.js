@@ -31,9 +31,10 @@ const ShoppingList = ({ listData, formData }) => {
   const handleGetShoppingList = async (data) => {
     try {
       setLoading(true);
+      console.log("data: ", data[0].ingredients);
       const titles = data.map((item) => item.title).join(", ");
-      const ingredients = data
-        .map((item) => item.recipe)
+      const ingredients = data[0].ingredients
+        .map((item) => item)
         .flat()
         .join(", ");
 
@@ -51,6 +52,7 @@ const ShoppingList = ({ listData, formData }) => {
       const store = formData.store;
 
       const prompt = shoppingListPrompt(allergies, store, ingredients, titles);
+      console.log("ingredients:", ingredients);
       const groceryList = await getGroceryList(prompt);
       localStorage.setItem("groceryList", JSON.stringify(groceryList));
 
@@ -94,10 +96,11 @@ const ShoppingList = ({ listData, formData }) => {
         </GetShoppingList>
       );
     } else {
-      //convert this to an accordion control. By default the list should be shown.
-      // clicking it should hide the list.
       return (
         <>
+          <GetShoppingList onClick={() => handleGetShoppingList(listData)}>
+            Get Shopping List
+          </GetShoppingList>
           <h1 onClick={toggleList}>Shopping List {isOpen ? "▼" : "▶"}</h1>
           <button onClick={printShoppingList}>Print</button>
         </>

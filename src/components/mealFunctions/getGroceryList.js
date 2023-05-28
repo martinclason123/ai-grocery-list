@@ -1,34 +1,46 @@
-const getGroceryList = async (prompt) => {
+const isValidResponse = (response) => {
+  if (!response || !Array.isArray(response.groceryList)) {
+    return false;
+  }
+
+  for (let item of response.groceryList) {
+    if (typeof item.department !== "string" || !Array.isArray(item.list)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const getGroceryList = async (prompt, attempts = 0) => {
   try {
-    const response = await fetch("/api/generic_endpoint", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
-    });
+    const response = await fetch(
+      "https://ai-meal-planner-server.onrender.com/grocerylist/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch meals.");
+      throw new Error("Failed to fetch Grocery list.");
     }
 
     const data = await response.json();
-    const lines = data.choices[0].text
-      .split("\n")
-      .filter((line) => line.trim() !== "");
-    const formattedList = [];
 
-    for (const line of lines) {
-      if (line.includes("Shopping List")) {
-        continue;
-      } else if (line.includes(":")) {
-        const department = line.slice(0, line.indexOf(":")).trim();
-        formattedList.push({ department, list: [] });
+    if (isValidResponse(data)) {
+      return data.groceryList;
+    } else {
+      if (attempts < 5) {
+        console.log("Invalid data received, retrying...");
+        return getGroceryList(prompt, attempts + 1);
       } else {
-        formattedList[formattedList.length - 1].list.push(line.trim());
+        throw new Error(
+          "Maximum attempts reached, still receiving invalid data."
+        );
       }
     }
-
-    console.log(formattedList);
-    return formattedList;
   } catch (error) {
     console.log(error);
     return [];
