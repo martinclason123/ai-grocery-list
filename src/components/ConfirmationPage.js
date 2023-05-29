@@ -1,3 +1,4 @@
+//src/components/ConfirmationPage.js
 import React, { useState, useEffect } from "react";
 import { buildPrompt } from "@/components/prompts/promptBuilder";
 import { Print } from "./utilities";
@@ -87,7 +88,7 @@ const ConfirmationPage = ({ formData }) => {
   return (
     <ConfirmationContainer>
       <h1>Meal Plan</h1>
-      {/* <Print /> */}
+      {!isLoading && <Print />}
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (

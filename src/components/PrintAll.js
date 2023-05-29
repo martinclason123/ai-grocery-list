@@ -40,17 +40,28 @@ const PrintAll = () => {
         <PrintPage key={index}>
           <Title>{recipe.title}</Title>
           <IngredientsList>
-            {recipe.recipe.map((ingredient, index) => (
-              <IngredientItem key={index}>{ingredient}</IngredientItem>
-            ))}
+            {recipe.recipe && Array.isArray(recipe.recipe) ? (
+              recipe.recipe.map((ingredient, index) => (
+                <IngredientItem key={index}>{ingredient}</IngredientItem>
+              ))
+            ) : (
+              <p>No ingredients found.</p>
+            )}
           </IngredientsList>
           <InstructionsList>
-            {recipe.instructions.map((instruction, index) => (
-              <InstructionItem key={index}>{instruction.text}</InstructionItem>
-            ))}
+            {recipe.instructions && Array.isArray(recipe.instructions) ? (
+              recipe.instructions.map((instruction, index) => (
+                <InstructionItem key={index}>
+                  {instruction.text}
+                </InstructionItem>
+              ))
+            ) : (
+              <p>No instructions found.</p>
+            )}
           </InstructionsList>
         </PrintPage>
       ))}
+
       <PrintPage>
         <GroceryListContainer>
           {groceries.length > 0 && <Title>Grocery List</Title>}

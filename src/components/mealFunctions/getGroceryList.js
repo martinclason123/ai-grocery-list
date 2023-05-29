@@ -15,8 +15,8 @@ const isValidResponse = (response) => {
 const getGroceryList = async (prompt, attempts = 0) => {
   try {
     const response = await fetch(
-      // "https://ai-meal-planner-server.onrender.com/grocerylist/",
-      "http://localhost:5000/grocerylist/",
+      "https://ai-meal-planner-server.onrender.com/grocerylist/",
+
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,7 +31,12 @@ const getGroceryList = async (prompt, attempts = 0) => {
     const data = await response.json();
 
     if (isValidResponse(data)) {
-      return data.groceryList;
+      // filter the array to exclude any elements where the `list` property is an empty array
+      const groceryList = data.groceryList.filter(
+        (item) => Array.isArray(item.list) && item.list.length > 0
+      );
+
+      return groceryList;
     } else {
       if (attempts < 5) {
         console.log("Invalid data received, retrying...");
