@@ -11,19 +11,27 @@ import {
   Button,
   InputWrapper,
   Icon,
+  CopyContainer,
+  Copy,
+  CheckList,
+  CheckListItem,
+  ChecklistText,
+  CheckListIcon,
+  Arrow,
 } from "./WaitingListStyles";
-import ActiveInput from "./ActiveInput";
+
 import { useForm } from "react-hook-form";
+
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 const WaitingList = () => {
   const url = "YOUR_MAILCHIMP_URL"; // Replace with your Mailchimp POST URL
   const { register, handleSubmit, formState } = useForm();
-  const onSubmit = (data) => console.log(data); // Will be replaced with Mailchimp functionality
   const [nameFocus, setnameFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
+  const MAILCHIMP_URL = process.env.NEXT_PUBLIC_MAILCHIMP_URL;
 
-  const borderActive = { border: "0.01em solid lime" };
+  const borderActive = { border: "0.01em solid #365d5a" };
 
   return (
     <WaitingListContainer>
@@ -68,9 +76,13 @@ const WaitingList = () => {
         Join the <br /> Waitlist
       </WaitingListTitle>
       <MailchimpSubscribe
-        url={url}
+        url={MAILCHIMP_URL}
         render={({ subscribe, status, message }) => (
-          <Form onSubmit={handleSubmit((data) => subscribe(data))}>
+          <Form
+            status={status}
+            message={message}
+            onSubmit={handleSubmit((data) => subscribe(data))}
+          >
             <InputWrapper
               style={nameFocus ? borderActive : null}
               onFocus={() => {
@@ -150,7 +162,33 @@ const WaitingList = () => {
               />
             </InputWrapper>
             <Button type="submit" disabled={formState.isSubmitting}>
-              Join the waitlist
+              {status === null && (
+                <>
+                  Join The Waitlist
+                  <Arrow
+                    id="uuid-042f7a63-55f5-476c-9488-ad5e37930bec"
+                    data-name="Layer 2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 47.06 36.35"
+                  >
+                    <g
+                      id="uuid-1501c61b-8ecd-44db-8bc2-7bbe28af7b10"
+                      data-name="Layer 2"
+                    >
+                      <path
+                        d="m42.81,18.18H0M26.76,2.12l16.05,16.05-16.05,16.05"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-miterlimit="10"
+                        stroke-width="6"
+                      />
+                    </g>
+                  </Arrow>
+                </>
+              )}
+              {status === "sending" && "sending..."}
+              {status === "error" && "error"}
+              {status === "success" && "Success!"}
             </Button>
           </Form>
         )}
@@ -160,6 +198,68 @@ const WaitingList = () => {
           margin: 0;
         }
       `}</style>
+      <CopyContainer>
+        <Copy>
+          Stop stressing and have your meal plan done in moments rather than
+          hours{" "}
+        </Copy>
+        <CheckList>
+          <CheckListItem>
+            <ChecklistText>Meal plan tailored to your needs</ChecklistText>
+            <CheckListIcon
+              data-name="Layer 2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 41.61 38.73"
+            >
+              <g
+                id="uuid-0b045581-fa05-4a51-9d55-ae7d9cdfabc6"
+                data-name="Layer 2"
+              >
+                <path
+                  d="m41.37,5.32c2.04-2.56-9.77-5.32-9.77-5.32,0,0-18.07,22.08-18.95,24.93-1.34-2.68-3.07-5.15-5.15-7.31-2.06-1.43-7.5,6.09-7.5,6.09,3.42,5.42,7.4,10.45,11.88,15.02,0,0,16.23-16.72,29.49-33.41h0Z"
+                  fill="#365d5a"
+                />
+              </g>
+            </CheckListIcon>
+          </CheckListItem>
+          <CheckListItem>
+            <ChecklistText>Beautiful, printable recipes</ChecklistText>
+            <CheckListIcon
+              data-name="Layer 2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 41.61 38.73"
+            >
+              <g
+                id="uuid-0b045581-fa05-4a51-9d55-ae7d9cdfabc6"
+                data-name="Layer 2"
+              >
+                <path
+                  d="m41.37,5.32c2.04-2.56-9.77-5.32-9.77-5.32,0,0-18.07,22.08-18.95,24.93-1.34-2.68-3.07-5.15-5.15-7.31-2.06-1.43-7.5,6.09-7.5,6.09,3.42,5.42,7.4,10.45,11.88,15.02,0,0,16.23-16.72,29.49-33.41h0Z"
+                  fill="#365d5a"
+                />
+              </g>
+            </CheckListIcon>
+          </CheckListItem>
+          <CheckListItem>
+            <ChecklistText>Conveniently organized grocery list</ChecklistText>
+            <CheckListIcon
+              data-name="Layer 2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 41.61 38.73"
+            >
+              <g
+                id="uuid-0b045581-fa05-4a51-9d55-ae7d9cdfabc6"
+                data-name="Layer 2"
+              >
+                <path
+                  d="m41.37,5.32c2.04-2.56-9.77-5.32-9.77-5.32,0,0-18.07,22.08-18.95,24.93-1.34-2.68-3.07-5.15-5.15-7.31-2.06-1.43-7.5,6.09-7.5,6.09,3.42,5.42,7.4,10.45,11.88,15.02,0,0,16.23-16.72,29.49-33.41h0Z"
+                  fill="#365d5a"
+                />
+              </g>
+            </CheckListIcon>
+          </CheckListItem>
+        </CheckList>
+      </CopyContainer>
     </WaitingListContainer>
   );
 };
