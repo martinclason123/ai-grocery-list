@@ -32,7 +32,16 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Work+Sans&display=swap"
+            rel="stylesheet"
+          ></link>
+        </Head>
         <body>
           <Main />
           <NextScript />
