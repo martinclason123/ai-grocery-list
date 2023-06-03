@@ -4,6 +4,8 @@ import { ThemeProvider } from "styled-components";
 import { ServerStyleSheet } from "styled-components";
 import Head from "next/head";
 import GlobalStyles from "@/styles/GlobalStyles";
+import ReactGA from "react-ga";
+import Router from "next/router";
 
 const theme = {
   colors: {
@@ -32,6 +34,12 @@ class MyApp extends App {
     } finally {
       sheet.seal();
     }
+  }
+
+  componentDidMount() {
+    ReactGA.initialize("G-ZR5HLNX24R");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    Router.events.on("routeChangeComplete", (url) => ReactGA.pageview(url));
   }
 
   render() {
