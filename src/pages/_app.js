@@ -6,6 +6,7 @@ import Head from "next/head";
 import GlobalStyles from "@/styles/GlobalStyles";
 import ReactGA from "react-ga";
 import Router from "next/router";
+import { Analytics } from "@vercel/analytics/react";
 
 const theme = {
   colors: {
@@ -61,6 +62,7 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
+          <Analytics />
         </ThemeProvider>
       </>
     );
