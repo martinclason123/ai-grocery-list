@@ -3,10 +3,9 @@ import App from "next/app";
 import { ThemeProvider } from "styled-components";
 import { ServerStyleSheet } from "styled-components";
 import Head from "next/head";
-import GlobalStyles from "@/styles/GlobalStyles";
-import ReactGA from "react-ga";
-import Router from "next/router";
+
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const theme = {
   colors: {
@@ -37,11 +36,11 @@ class MyApp extends App {
     }
   }
 
-  componentDidMount() {
-    ReactGA.initialize("G-ZR5HLNX24R");
-    ReactGA.pageview(window.location.pathname + window.location.search);
-    Router.events.on("routeChangeComplete", (url) => ReactGA.pageview(url));
-  }
+  // componentDidMount() {
+  //   ReactGA.initialize("G-ZR5HLNX24R");
+  //   ReactGA.pageview(window.location.pathname + window.location.search);
+  //   Router.events.on("routeChangeComplete", (url) => ReactGA.pageview(url));
+  // }
 
   render() {
     const { Component, pageProps } = this.props;
@@ -60,6 +59,19 @@ class MyApp extends App {
             }
           `}</style>
         </Head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZR5HLNX24R"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-ZR5HLNX24R');
+        `}
+        </Script>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
           <Analytics />
