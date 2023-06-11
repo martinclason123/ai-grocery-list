@@ -1,6 +1,32 @@
+import { NextSeo } from "next-seo";
 import WaitingList from "@/components/WaitingList/WaitingList";
+
 export default function Home() {
-  return <WaitingList />;
+  return (
+    <>
+      <NextSeo
+        title="Home - Automatic Meal Planner | Personalized Meal Planning Solution"
+        description="Automatic Meal Planner offers the best personalized meal planning solution. We create meal plans based on your dietary needs and preferences. Try our multi-step form and get your customized meal plan, recipes, and shopping list today!"
+        openGraph={{
+          type: "website",
+          url: "https://www.automaticmealplan.com/",
+          title:
+            "Home - Automatic Meal Planner | Personalized Meal Planning Solution",
+          description:
+            "Automatic Meal Planner offers the best personalized meal planning solution. We create meal plans based on your dietary needs and preferences. Try our multi-step form and get your customized meal plan, recipes, and shopping list today!",
+          images: [
+            {
+              url: "https://res.cloudinary.com/dflipazxf/image/upload/v1686515156/Automatic%20Meal%20Plan/og-preview-img_mbtckn.jpg",
+              width: 800,
+              height: 600,
+              alt: "Mother and daughter child together",
+            },
+          ],
+        }}
+      />
+      <WaitingList />;
+    </>
+  );
 }
 // import React, { useState, useEffect } from "react";
 // import Head from "next/head";
